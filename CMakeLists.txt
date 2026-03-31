@@ -5,7 +5,7 @@ project(Spikes LANGUAGES C CXX CUDA)
 find_package(CUDAToolkit REQUIRED)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-add_executable(spikes main.c spike.cu process.c data.h)
+add_executable(spikes main.c spike.cu data.h utils.c config.h process.c)
 
 set_target_properties(spikes PROPERTIES
     CUDA_SEPARABLE_COMPILATION ON

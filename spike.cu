@@ -1,5 +1,6 @@
 #include "config.h"
 #include "data.h"
+#include "spike.h"
 #include <math.h>
 #include <stdlib.h>
 
@@ -40,7 +41,7 @@ __global__ void update(float *membranes, int *conns, float *weights,
     refactory[i] -= 1;
   } else {
     // Decay
-    new_v = membranes[i] * beta;
+    membranes[i] = membranes[i] * beta;
   }
   float thresh = base_threshold + thresholds[i];
   int spiked = membranes[i] >= thresh;

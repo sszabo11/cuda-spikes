@@ -1,4 +1,5 @@
-#pragma once
+#ifndef CUDA_INTERFACE_H
+#define CUDA_INTERFACE_H
 
 #include "config.h"
 #include "data.h"
@@ -14,4 +15,12 @@
     }                                                                          \
   } while (0)
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 cudaError_t run_kernels(Config *config, NetworkData *data);
+#ifdef __cplusplus
+}
+#endif
+
+#endif
