@@ -13,6 +13,7 @@ typedef struct {
   float w_max;
   float base_threshold;
   float sparsity;
+  int T;
 } Config;
 
 #endif

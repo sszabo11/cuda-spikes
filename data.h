@@ -1,3 +1,5 @@
+#include "config.h"
+
 #ifndef DATA_H
 #define DATA_H
 
@@ -14,3 +16,4 @@ typedef struct {
 } NetworkData;
 
 #endif
+int init_data(Config *config, NetworkData *data);

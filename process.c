@@ -2,6 +2,7 @@
 #include "spike.h"
 #include "utils.h"
 #include <cuda_runtime.h>
+#include <driver_types.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -54,9 +55,18 @@ cudaError_t process(Config *config, NetworkData *data) {
   //   }
   // }
 
-  int const T = 10;
-
-  printf("\n\n%f\n", data->membranes[64]);
+  if (!config->T) {
+    printf("Error: Timesteps not specified!");
+    return cudaErrorInvalidConfiguration;
+  }
+  if (!config->n_neurons) {
+    printf("Error: Number of neurons not specified!");
+    return cudaErrorInvalidConfiguration;
+  }
+  if (!config->n_conns) {
+    printf("Error: Connections not specified!");
+    return cudaErrorInvalidConfiguration;
+  }
 
   float *d_membranes;
   int *d_conns;
@@ -71,11 +81,12 @@ cudaError_t process(Config *config, NetworkData *data) {
   int n_neurons = config->n_neurons;
   int n_conns = config->n_conns;
 
+  NetworkData d_data;
+
   cudaMalloc((void **)&d_membranes, n_neurons * sizeof(float));
   cudaMalloc((void **)&d_conns, n_neurons * n_conns * sizeof(int));
   cudaMalloc((void **)&d_weights, n_neurons * n_conns * sizeof(float));
   cudaMalloc((void **)&d_pre_spikes, n_neurons * sizeof(int));
-
   cudaMalloc((void **)&d_post_spikes, n_neurons * sizeof(int));
   cudaMalloc((void **)&d_pre_trace, n_neurons * sizeof(float));
   cudaMalloc((void **)&d_post_trace, n_neurons * sizeof(float));
@@ -106,9 +117,18 @@ cudaError_t process(Config *config, NetworkData *data) {
   cudaMemcpy(d_refactory, data->refactory, n_neurons * sizeof(int),
              cudaMemcpyHostToDevice);
 
-  for (int t = 0; t < T; t++) {
-    cudaError_t err = run_kernels(config, data);
-    printf("err: %d\n", err);
+  d_data.membranes = d_membranes;
+  d_data.conns = d_conns;
+  d_data.weights = d_weights;
+  d_data.pre_spikes = d_pre_spikes;
+  d_data.post_spikes = d_post_spikes;
+  d_data.pre_trace = d_pre_trace;
+  d_data.post_trace = d_post_trace;
+  d_data.refactory = d_refactory;
+  d_data.thresholds = d_thresholds;
+
+  for (int t = 0; t < config->T; t++) {
+    cudaError_t err = run_kernels(config, &d_data);
   }
   cudaMemcpy(data->membranes, d_membranes, n_neurons * sizeof(float),
              cudaMemcpyDeviceToHost);
@@ -133,7 +153,6 @@ cudaError_t process(Config *config, NetworkData *data) {
   cudaMemcpy(data->refactory, d_refactory, n_neurons * sizeof(int),
              cudaMemcpyDeviceToHost);
 
-  printf("\n\n%f\n", data->membranes[64]);
   cudaFree(d_membranes);
   cudaFree(d_conns);
   cudaFree(d_pre_spikes);

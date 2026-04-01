@@ -5,7 +5,10 @@ project(Spikes LANGUAGES C CXX CUDA)
 find_package(CUDAToolkit REQUIRED)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-add_executable(spikes main.c spike.cu data.h utils.c config.h process.c)
+add_executable(spikes main.c spike.cu data.h utils.c config.h process.c data.c)
+
+enable_testing()
+add_executable(test_main test.c spike.cu data.h utils.c config.h process.c data.c)
 
 set_target_properties(spikes PROPERTIES
     CUDA_SEPARABLE_COMPILATION ON
@@ -13,6 +16,7 @@ set_target_properties(spikes PROPERTIES
 )
 
 target_link_libraries(spikes PRIVATE CUDA::cudart)
+target_link_libraries(test_main PRIVATE CUDA::cudart)
 #set_target_properties(spikes PROPERTIES CUDA_SEPARABLE_COMPILATION ON) 
 
 target_include_directories(spikes PRIVATE ${CMAKE_CUDA_TOOLKIT_INCLUDE_DIRECTORIES})
