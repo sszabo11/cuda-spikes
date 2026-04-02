@@ -1,7 +1,7 @@
-
 #include "config.h"
 #include "data.h"
 #include "process.h"
+#include "render.h"
 #include "utils.h"
 #include <cuda_runtime.h>
 #include <stdio.h>
@@ -9,10 +9,10 @@
 
 int main() {
   srand(2);
-  int n_neurons = 10;
-  int n_conns = 2;
+  int n_neurons = 2000;
+  int n_conns = 10;
 
-  float sparsity = 0.5;
+  float sparsity = 0.2;
 
   Config *config = malloc(sizeof(Config));
   NetworkData *data = malloc(sizeof(NetworkData));
@@ -45,4 +45,6 @@ int main() {
   for (int i = 0; i < n_neurons; i++) {
     printf("\nNeuron %d: %f", i, data->membranes[i]);
   }
+
+  render(config, data);
 }

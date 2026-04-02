@@ -11,8 +11,8 @@
 int main() {
 
   srand(time(NULL));
-  int n_neurons = 10000000;
-  int n_conns = 100;
+  int n_neurons = 1000000;
+  int n_conns = 10;
 
   float sparsity = 0.2;
 
