@@ -40,6 +40,7 @@ __global__ void update(float *membranes, int *conns, float *weights,
   // Neuron is not inhibited
   if (refactory[i] > 0) {
     refactory[i] -= 1;
+    membranes[i] = 0.0;
   } else {
     // Decay
     membranes[i] = membranes[i] * beta;
@@ -51,8 +52,10 @@ __global__ void update(float *membranes, int *conns, float *weights,
 
     membranes[i] = 0.0; // Reset
 
-    refactory[i] = 3; // Inhibit for 3 timesteps
+    refactory[i] = 5; // Inhibit for 3 timesteps
     post_trace[i] += 1.0;
+  } else {
+    post_spikes[i] = 0;
   }
 
   if (spiked)

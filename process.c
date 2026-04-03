@@ -127,9 +127,9 @@ cudaError_t process(Config *config, NetworkData *data) {
   d_data.refactory = d_refactory;
   d_data.thresholds = d_thresholds;
 
-  for (int t = 0; t < config->T; t++) {
-    cudaError_t err = run_kernels(config, &d_data);
-  }
+  // for (int t = 0; t < config->T; t++) {
+  cudaError_t err = run_kernels(config, &d_data);
+  //}
   cudaMemcpy(data->membranes, d_membranes, n_neurons * sizeof(float),
              cudaMemcpyDeviceToHost);
   cudaMemcpy(data->conns, d_conns, n_neurons * n_conns * sizeof(int),
