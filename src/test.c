@@ -6,11 +6,12 @@
 #include <cuda_runtime.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 int main() {
-  // srand(2);
-  int n_neurons = 300;
-  int n_conns = 6;
+  srand(time(NULL));
+  int n_neurons = 1000;
+  int n_conns = 10;
 
   float sparsity = 0.02;
 
@@ -22,12 +23,12 @@ int main() {
   config->n_conns = n_conns;
   config->tau_minus = 0.9;
   config->tau_plus = 0.9;
-  config->beta = 0.9;
+  config->beta = 0.8;
   config->a_plus = 0.001;
   config->a_minus = 0.001;
-  config->w_min = 0.1;
-  config->w_max = 0.9;
-  config->base_threshold = 0.2;
+  config->w_min = 0.3;
+  config->w_max = 0.6;
+  config->base_threshold = 0.3;
   config->sparsity = sparsity;
   config->T = T;
 

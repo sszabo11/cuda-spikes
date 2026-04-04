@@ -15,5 +15,16 @@ typedef struct {
   float *post_trace;
 } NetworkData;
 
+typedef struct {
+} InputData;
+typedef struct {
+} OutputData;
+
+typedef struct {
+  NetworkData *data;
+  InputData *input_data;
+  OutputData *output_data;
+} AllData;
+
 #endif
 int init_data(Config *config, NetworkData *data);

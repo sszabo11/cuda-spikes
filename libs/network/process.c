@@ -8,53 +8,6 @@
 #include <string.h>
 
 cudaError_t process(Config *config, NetworkData *data) {
-
-  // State of voltage of each neuron at timestep
-  // float *h_membranes = (float *)malloc(sizeof(float) * config->n_neurons);
-
-  //// Store connections for each neuron
-  // int *h_conns = generate_connections(config->n_neurons, config->n_conns);
-
-  //// Store weights for each neurons connection
-  // float *h_weights = generate_weights(config->n_neurons, config->n_neurons,
-  //                                     config->w_min, config->w_max);
-
-  //// State of ALL neurons at last timestep
-  // int *h_pre_spikes = (int *)malloc(sizeof(int) * config->n_neurons);
-
-  // int *h_post_spikes = (int *)malloc(sizeof(int) * config->n_neurons);
-
-  // float *h_thresholds = (float *)malloc(sizeof(float) * config->n_neurons);
-
-  // float *h_pre_trace = (float *)malloc(sizeof(float) * config->n_neurons);
-
-  // float *h_post_trace = (float *)malloc(sizeof(float) * config->n_neurons);
-
-  // int *h_refactory = (int *)malloc(sizeof(int) * config->n_neurons);
-
-  //  memset(data->pre_trace, 0, config->n_neurons * sizeof(float));
-  //  memset(data->post_trace, 0, config->n_neurons * sizeof(float));
-  //  memset(data->refactory, 0, config->n_neurons * sizeof(int));
-
-  // for (int i = 0; i < config->n_neurons; i++) {
-  //   double random_num = (double)rand() / ((double)RAND_MAX + 1.0);
-  //   double random_num2 = (double)rand() / ((double)RAND_MAX + 1.0);
-  //   double random_num3 = (double)rand() / ((double)RAND_MAX + 1.0);
-
-  //  data->membranes[i] = random_num;
-  //  data->pre_spikes[i] = random_num > config->sparsity ? 0 : 1;
-  //  data->post_spikes[i] = random_num2 > config->sparsity ? 0 : 1;
-  //  data->thresholds[i] = random_num3;
-  //}
-
-  // int fired = 0;
-  // for (int i = 0; i < config->n_neurons; i++) {
-  //   // printf("%d", membranes[i]);
-  //   if (data->pre_spikes[i] == 1.0) {
-  //     fired++;
-  //   }
-  // }
-
   if (!config->T) {
     printf("Error: Timesteps not specified!");
     return cudaErrorInvalidConfiguration;
@@ -127,9 +80,15 @@ cudaError_t process(Config *config, NetworkData *data) {
   d_data.refactory = d_refactory;
   d_data.thresholds = d_thresholds;
 
-  // for (int t = 0; t < config->T; t++) {
-  cudaError_t err = run_kernels(config, &d_data);
-  //}
+  // Input encode one timestep
+  cudaError_t err_i = run_kernels(config, &d_data);
+
+  // Network process one timestep
+  cudaError_t err_n = run_kernels(config, &d_data);
+
+  // Output decode on timestep
+  cudaError_t err_o = run_kernels(config, &d_data);
+
   cudaMemcpy(data->membranes, d_membranes, n_neurons * sizeof(float),
              cudaMemcpyDeviceToHost);
   cudaMemcpy(data->conns, d_conns, n_neurons * n_conns * sizeof(int),
