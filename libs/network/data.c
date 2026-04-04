@@ -2,6 +2,7 @@
 #include "config.h"
 #include "utils.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 int init_data(Config *config, NetworkData *data) {
@@ -50,4 +51,16 @@ int init_data(Config *config, NetworkData *data) {
          (float)fired / config->n_neurons * 100.0);
 
   return 0;
+}
+
+void free_data(NetworkData *data) {
+  free(data->conns);
+  free(data->weights);
+  free(data->membranes);
+  free(data->post_spikes);
+  free(data->pre_spikes);
+  free(data->post_trace);
+  free(data->pre_trace);
+  free(data->refactory);
+  free(data->thresholds);
 }

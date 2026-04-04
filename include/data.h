@@ -28,3 +28,4 @@ typedef struct {
 
 #endif
 int init_data(Config *config, NetworkData *data);
+void free_data(NetworkData *data);

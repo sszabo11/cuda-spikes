@@ -25,6 +25,8 @@ set_target_properties(snn_c PROPERTIES
     CUDA_ARCHITECTURES "native"          # Or "80;86;89;90" for specific GPUs
 )
 
+set(SUPPORT_FILEFORMAT_JPG, 1)
+
 include(FetchContent)
 FetchContent_Declare(
   raylib
