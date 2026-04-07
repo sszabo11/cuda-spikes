@@ -49,7 +49,7 @@ int main() {
     printf("\nNeuron %d: %f", i, data->membranes[i]);
   }
 
-  ImageData *img_data = get_image_data("../data/cat1.png");
+  ImageData *img_data = get_image_data("../data/Balcony-ja.png");
   EyeReceptor *eye = malloc(sizeof(EyeReceptor));
 
   eye->kernel_size = 3;
@@ -61,11 +61,14 @@ int main() {
   float kernel1[] = {0.1, 0.1, 1.0, 0.1, 0.1, 1.0, 0.1, 0.1, 1.0};
   float kernel2[] = {0.1, 0.1, 0.1, 0.1, 9.0, 0.1, 0.1, 0.1, 0.1};
   float kernel3[] = {0.1, 0.1, -5.0, 0.1, 0.1, -5.0, 0.1, 0.1, -5.0};
+  float kernel4[] = {1.1, 0.1, -1.0, 1.1, 0.1, -1.0, 1.1, 0.1, -1.0};
+  float kernel5[] = {4.0, -1.0, -1.0, 4.0, -0.0, -0.0, 4.0, -1.0, -0.0};
+  float kernel6[] = {1.0, 0.0, -1.0, 1.0, 0.0, -1.0, 1.0, 0.0, -1.0};
   for (int kx = 0; kx < eye->kernel_size; kx++) {
     for (int ky = 0; ky < eye->kernel_size; ky++) {
       // eye->kernel[ky * eye->kernel_size + kx] = 1.0;
       eye->kernel[ky * eye->kernel_size + kx] =
-          kernel3[ky * eye->kernel_size + kx];
+          kernel6[ky * eye->kernel_size + kx];
     }
   }
 
@@ -87,7 +90,7 @@ int main() {
   processed_img->data = output->pixels;
   processed_img->mipmaps = 1;
 
-  ExportImage(*processed_img, "../data/cat_output.png");
+  ExportImage(*processed_img, "../data/output3-9.png");
 
   // for (int p = 0; p < 10; p++) {
   //   cudaError_t res = process(config, data);
