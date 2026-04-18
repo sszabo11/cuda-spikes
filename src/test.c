@@ -1,5 +1,6 @@
 #include "config.h"
 #include "data.h"
+#include "encode.h"
 #include "eye.h"
 #include "process.h"
 #include "render.h"
@@ -14,7 +15,7 @@
 
 int main() {
   srand(time(NULL));
-  int n_neurons = 100;
+  int n_neurons = 1000;
   int n_conns = 10;
 
   float sparsity = 0.02;
@@ -35,28 +36,28 @@ int main() {
   config->base_threshold = 0.3;
   config->sparsity = sparsity;
   config->T = T;
+  init_data(config, data, NULL);
+  printf("Initalized data");
 
-  init_data(config, data);
+  // for (int i = 0; i < n_neurons; i++) {
+  //   printf("\nNeuron %d: %f", i, data->membranes[i]);
+  // }
+  // printf("\n");
 
-  for (int i = 0; i < n_neurons; i++) {
-    printf("\nNeuron %d: %f", i, data->membranes[i]);
-  }
-  printf("\n");
+  // for (int i = 0; i < n_neurons; i++) {
+  //   printf("\nNeuron %d: %f", i, data->membranes[i]);
+  // }
 
-  // printf("\nDone: %f\n", data->membranes[0]);
-
-  for (int i = 0; i < n_neurons; i++) {
-    printf("\nNeuron %d: %f", i, data->membranes[i]);
-  }
-
-  ImageData *img_data = get_image_data("../data/Balcony-ja.png");
+  ImageData *img_data = get_image_data("../data/desktop1.png");
   EyeReceptor *eye = malloc(sizeof(EyeReceptor));
 
-  eye->kernel_size = 3;
+  eye->kernel_size = 5;
   eye->stride = 1;
   eye->width = img_data->width;
   eye->height = img_data->height;
   eye->kernel = malloc(sizeof(float) * img_data->width * img_data->height);
+  eye->kernel_x = malloc(sizeof(float) * img_data->width * img_data->height);
+  eye->kernel_y = malloc(sizeof(float) * img_data->width * img_data->height);
 
   float kernel1[] = {0.1, 0.1, 1.0, 0.1, 0.1, 1.0, 0.1, 0.1, 1.0};
   float kernel2[] = {0.1, 0.1, 0.1, 0.1, 9.0, 0.1, 0.1, 0.1, 0.1};
@@ -64,11 +65,25 @@ int main() {
   float kernel4[] = {1.1, 0.1, -1.0, 1.1, 0.1, -1.0, 1.1, 0.1, -1.0};
   float kernel5[] = {4.0, -1.0, -1.0, 4.0, -0.0, -0.0, 4.0, -1.0, -0.0};
   float kernel6[] = {1.0, 0.0, -1.0, 1.0, 0.0, -1.0, 1.0, 0.0, -1.0};
+  float kernel5x5[] = {-1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 1.0,  1.0, 1.0,
+                       -1.0, -1.0, 1.0,  8.0,  1.0,  -1.0, -1.0, 1.0, 1.0,
+                       1.0,  -1.0, -1.0, -1.0, -1.0, -1.0, -1.0};
+  float kernel_laplacian[] = {0.0,  0.0,  -1.0, 0.0,  0.0,  0.0,  -1.0,
+                              -2.0, -1.0, 0.0,  -1.0, -2.0, 16.0, -2.0,
+                              -1.0, 0.0,  -1.0, -2.0, -1.0, 0.0,  0.0,
+                              0.0,  -1.0, 0.0,  0.0};
+  float kernel_sobel_x[] = {-1.0, 0.0, 1.0, -2.0, 0.0, 2.0, -1.0, 0.0, 1.0};
+  float kernel_sobel_y[] = {1.0, 2.0, 1.0, 0.0, 0.0, 0.0, -1.0, -2.0, -1.0};
+
   for (int kx = 0; kx < eye->kernel_size; kx++) {
     for (int ky = 0; ky < eye->kernel_size; ky++) {
       // eye->kernel[ky * eye->kernel_size + kx] = 1.0;
       eye->kernel[ky * eye->kernel_size + kx] =
-          kernel6[ky * eye->kernel_size + kx];
+          kernel_laplacian[ky * eye->kernel_size + kx];
+      eye->kernel_x[ky * eye->kernel_size + kx] =
+          kernel_sobel_x[ky * eye->kernel_size + kx];
+      eye->kernel_y[ky * eye->kernel_size + kx] =
+          kernel_sobel_y[ky * eye->kernel_size + kx];
     }
   }
 
@@ -90,12 +105,15 @@ int main() {
   processed_img->data = output->pixels;
   processed_img->mipmaps = 1;
 
-  ExportImage(*processed_img, "../data/output3-9.png");
+  // ExportImage(*processed_img, "../data/output-desktop-black.png");
 
-  // for (int p = 0; p < 10; p++) {
+  // SpikeTrain *encoded_data = rate_encode(img_data, T);
+  // printf("Rate encoded");
+
+  // for (int t = 0; t < T; t++) {
   //   cudaError_t res = process(config, data);
   // }
-  // render(config, data);
+  render(config, data);
 
   free_data(data);
   free(config);

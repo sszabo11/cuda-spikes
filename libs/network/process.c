@@ -81,13 +81,13 @@ cudaError_t process(Config *config, NetworkData *data) {
   d_data.thresholds = d_thresholds;
 
   // Input encode one timestep
-  cudaError_t err_i = run_kernels(config, &d_data);
+  // cudaError_t err_i = run_kernels(config, &d_data);
 
   // Network process one timestep
   cudaError_t err_n = run_kernels(config, &d_data);
 
   // Output decode on timestep
-  cudaError_t err_o = run_kernels(config, &d_data);
+  // cudaError_t err_o = run_kernels(config, &d_data);
 
   cudaMemcpy(data->membranes, d_membranes, n_neurons * sizeof(float),
              cudaMemcpyDeviceToHost);
@@ -122,5 +122,5 @@ cudaError_t process(Config *config, NetworkData *data) {
   cudaFree(d_post_trace);
   cudaFree(d_thresholds);
 
-  return cudaSuccess;
+  return err_n;
 }

@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-int init_data(Config *config, NetworkData *data) {
+int init_data(Config *config, NetworkData *data, int *input) {
   data->membranes = (float *)malloc(sizeof(float) * config->n_neurons);
 
   data->conns = generate_connections(config->n_neurons, config->n_conns);
@@ -35,6 +35,7 @@ int init_data(Config *config, NetworkData *data) {
     double random_num3 = (double)rand() / ((double)RAND_MAX + 1.0);
 
     data->membranes[i] = random_num;
+    // data->pre_spikes[i] = input[i];
     data->pre_spikes[i] = random_num > config->sparsity ? 0 : 1;
     data->post_spikes[i] = random_num2 > config->sparsity ? 0 : 1;
     data->thresholds[i] = random_num3;

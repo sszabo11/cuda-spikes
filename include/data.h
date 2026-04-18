@@ -27,5 +27,5 @@ typedef struct {
 } AllData;
 
 #endif
-int init_data(Config *config, NetworkData *data);
+int init_data(Config *config, NetworkData *data, int *input);
 void free_data(NetworkData *data);

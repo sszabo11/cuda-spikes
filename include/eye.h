@@ -7,7 +7,9 @@ typedef struct {
   int height;
   int kernel_size;
   int stride;
-  float *kernel; // Matrix of weighted values for each pixel
+  float *kernel;   // Matrix of weighted values for each pixel
+  float *kernel_x; // Matrix of weighted values for each pixel
+  float *kernel_y; // Matrix of weighted values for each pixel
 } EyeReceptor;
 
 typedef struct {

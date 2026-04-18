@@ -46,7 +46,7 @@ int render(Config *config, NetworkData *data) {
 
   Texture2D texture = LoadTextureFromImage(image);
 
-  BeginBlendMode(BLEND_ALPHA);
+  // BeginBlendMode(BLEND_ALPHA);
   UnloadImage(image);
 
   Color redish = {255, 59, 0, 100};
@@ -71,11 +71,11 @@ int render(Config *config, NetworkData *data) {
 
     if (frame % 3 == 0) {
       cudaError_t res = process(config, data);
+      printf("\n%d\n", res);
     }
     for (int i = 0; i < config->n_neurons; i++) {
       // DrawCircleGradient(cords[i].x, cords[i].y, 12, Blue3, Blue4);
       // DrawCircleGradient(cords[i].x, cords[i].y, 6, Blue1, Blue2);
-
       if (data->post_spikes[i] == 1) {
         // DrawSphere((Vector3){cords[i].x, cords[i].y, 0}, 10, WHITE);
         DrawCircleGradient(cords[i].x, cords[i].y, 10, WHITE, White2);
