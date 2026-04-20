@@ -129,3 +129,33 @@ ReceptorResponse *receptor(EyeReceptor config, ImageData *img) {
   res->out_h = out_h;
   return res;
 }
+
+Image *process_img(EyeReceptor *eye, float *kernel_main, float *kernel_x,
+                   float *kernel_y, ImageData *img_data) {
+
+  for (int kx = 0; kx < eye->kernel_size; kx++) {
+    for (int ky = 0; ky < eye->kernel_size; ky++) {
+      // eye->kernel[ky * eye->kernel_size + kx] = 1.0;
+      eye->kernel[ky * eye->kernel_size + kx] =
+          kernel_main[ky * eye->kernel_size + kx];
+      eye->kernel_x[ky * eye->kernel_size + kx] =
+          kernel_x[ky * eye->kernel_size + kx];
+      eye->kernel_y[ky * eye->kernel_size + kx] =
+          kernel_y[ky * eye->kernel_size + kx];
+    }
+  }
+
+  printf("image w: %d | h: %d\n", img_data->width, img_data->height);
+
+  ReceptorResponse *output = receptor(*eye, img_data);
+
+  Image *processed_img = malloc(sizeof(Image));
+
+  processed_img->width = output->out_w;
+  processed_img->height = output->out_h;
+  processed_img->format = PIXELFORMAT_UNCOMPRESSED_R8G8B8A8;
+  processed_img->data = output->pixels;
+  processed_img->mipmaps = 1;
+
+  return processed_img;
+}

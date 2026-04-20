@@ -1,14 +1,16 @@
 #include "data.h"
 #include "config.h"
+#include "encode.h"
 #include "utils.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-int init_data(Config *config, NetworkData *data, int *input) {
+int init_data(Config *config, NetworkData *data, SpikeTrain *input_train) {
   data->membranes = (float *)malloc(sizeof(float) * config->n_neurons);
 
-  data->conns = generate_connections(config->n_neurons, config->n_conns);
+  data->conns = generate_connections(config->n_neurons, config->n_neurons,
+                                     config->n_conns);
 
   data->weights = generate_weights(config->n_neurons, config->n_neurons,
                                    config->w_min, config->w_max);
@@ -35,8 +37,8 @@ int init_data(Config *config, NetworkData *data, int *input) {
     double random_num3 = (double)rand() / ((double)RAND_MAX + 1.0);
 
     data->membranes[i] = random_num;
-    // data->pre_spikes[i] = input[i];
-    data->pre_spikes[i] = random_num > config->sparsity ? 0 : 1;
+    data->pre_spikes[i] = SPIKE(input_train, i, i, 0);
+    // data->pre_spikes[i] = random_num > config->sparsity ? 0 : 1;
     data->post_spikes[i] = random_num2 > config->sparsity ? 0 : 1;
     data->thresholds[i] = random_num3;
   }

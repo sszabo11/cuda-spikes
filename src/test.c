@@ -16,7 +16,7 @@
 int main() {
   srand(time(NULL));
   int n_neurons = 1000;
-  int n_conns = 10;
+  int n_conns = 20;
 
   float sparsity = 0.02;
 
@@ -36,8 +36,6 @@ int main() {
   config->base_threshold = 0.3;
   config->sparsity = sparsity;
   config->T = T;
-  init_data(config, data, NULL);
-  printf("Initalized data");
 
   // for (int i = 0; i < n_neurons; i++) {
   //   printf("\nNeuron %d: %f", i, data->membranes[i]);
@@ -107,13 +105,16 @@ int main() {
 
   // ExportImage(*processed_img, "../data/output-desktop-black.png");
 
-  // SpikeTrain *encoded_data = rate_encode(img_data, T);
-  // printf("Rate encoded");
+  SpikeTrain *encoded_data = rate_encode(img_data, T);
+  printf("Rate encoded");
 
+  // First timestep spikes
+  init_data(config, data, encoded_data);
+  printf("Initalized data");
   // for (int t = 0; t < T; t++) {
   //   cudaError_t res = process(config, data);
   // }
-  render(config, data);
+  render(config, data, encoded_data);
 
   free_data(data);
   free(config);

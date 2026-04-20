@@ -1,9 +1,14 @@
 cmake_minimum_required(VERSION 3.18)
 
+set(CUDAToolkit_ROOT /opt/cuda)
+#set(CUDACXX /opt/cuda/bin/nvcc)
 project(Spikes LANGUAGES C CXX CUDA)
 
+set(raylib_DIR "${CMAKE_BINARY_DIR}/_deps/raylib-build" CACHE PATH "Path to raylib config" FORCE)
 find_package(CUDAToolkit REQUIRED)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+set(CMAKE_CUDA_COMPILER /opt/cuda/bin/nvcc)
+set(CMAKE_BUILD_TYPE release)
 
 file(GLOB_RECURSE C_SOURCES    CONFIGURE_DEPENDS "libs/**/*.c" "src/*.c")
 file(GLOB_RECURSE CU_SOURCES   CONFIGURE_DEPENDS "libs/**/*.cu")
@@ -18,6 +23,9 @@ enable_testing()
 
 target_include_directories(snn_c    PUBLIC include/)
 target_include_directories(snn_cuda PUBLIC include/)
+target_include_directories(snn_c PRIVATE 
+    ${CMAKE_BINARY_DIR}/_deps/raylib-src/src
+)
 
 
 set_target_properties(snn_c PROPERTIES
@@ -42,11 +50,15 @@ target_include_directories(snn_c PRIVATE ${CMAKE_CUDA_TOOLKIT_INCLUDE_DIRECTORIE
 add_executable(main src/main.c)
 target_link_libraries(main PRIVATE snn_c snn_cuda)
 
+add_executable(foo src/foo.c)
+target_link_libraries(foo PRIVATE snn_c snn_cuda)
+
 add_executable(test_main src/test.c)
 target_link_libraries(test_main PRIVATE snn_c snn_cuda)
 
 target_link_libraries(main PRIVATE CUDA::cudart)
 target_link_libraries(test_main PRIVATE CUDA::cudart raylib)
+target_link_libraries(foo PRIVATE CUDA::cudart raylib)
 
 
 message(STATUS "CUDA include dir: ${CUDAToolkit_INCLUDE_DIRS}")

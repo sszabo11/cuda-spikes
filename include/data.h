@@ -1,4 +1,5 @@
 #include "config.h"
+#include "encode.h"
 
 #ifndef DATA_H
 #define DATA_H
@@ -27,5 +28,5 @@ typedef struct {
 } AllData;
 
 #endif
-int init_data(Config *config, NetworkData *data, int *input);
+int init_data(Config *config, NetworkData *data, SpikeTrain *input_train);
 void free_data(NetworkData *data);

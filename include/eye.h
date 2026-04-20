@@ -30,4 +30,7 @@ typedef struct {
 ImageData *get_image_data(char *path);
 
 ReceptorResponse *receptor(EyeReceptor config, ImageData *img);
+
+Image *process_img(EyeReceptor *eye, float *kernel_main, float *kernel_x,
+                   float *kernel_y, ImageData *img_data);
 #endif
