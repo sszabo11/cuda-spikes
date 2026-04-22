@@ -1,11 +1,12 @@
 #include <raylib.h>
+#include <stdint.h>
 
 #ifndef PERSON_H
 #define PERSON_H
 typedef struct {
   int width;
   int height;
-  int kernel_size;
+  uint8_t kernel_size;
   int stride;
   float *kernel;   // Matrix of weighted values for each pixel
   float *kernel_x; // Matrix of weighted values for each pixel

@@ -57,7 +57,7 @@ SpikeTrain *rate_encode(ImageData *img_data, int T) {
   // Total size: height * width * T
   size_t total_spikes = (size_t)st->height * st->width * T;
 
-  st->data = calloc(total_spikes, sizeof(uint8_t)); // zeros by default
+  st->data = calloc(total_spikes, sizeof(uint8_t));
   if (!st->data) {
     free(st);
     return NULL;
@@ -79,6 +79,8 @@ SpikeTrain *rate_encode(ImageData *img_data, int T) {
       }
     }
   }
+
+  return st;
 }
 
 // TODO: Cuda kernel for rate encoding.

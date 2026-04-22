@@ -37,22 +37,27 @@ int main() {
   config->T = T;
 
   ImageData *img_data = get_image_data("../data/desktop1.png");
-  EyeReceptor *eye = malloc(sizeof(EyeReceptor));
 
+  EyeReceptor *eye = malloc(sizeof(EyeReceptor));
   eye->kernel_size = 5;
   eye->stride = 1;
   eye->width = img_data->width;
   eye->height = img_data->height;
-  eye->kernel = malloc(sizeof(float) * img_data->width * img_data->height);
-  eye->kernel_x = malloc(sizeof(float) * img_data->width * img_data->height);
-  eye->kernel_y = malloc(sizeof(float) * img_data->width * img_data->height);
+
+  size_t ksize = eye->kernel_size * eye->kernel_size;
+  eye->kernel = malloc(sizeof(float) * ksize);
+  eye->kernel_x = malloc(sizeof(float) * ksize);
+  eye->kernel_y = malloc(sizeof(float) * ksize);
 
   float kernel_laplacian[] = {0.0,  0.0,  -1.0, 0.0,  0.0,  0.0,  -1.0,
                               -2.0, -1.0, 0.0,  -1.0, -2.0, 16.0, -2.0,
                               -1.0, 0.0,  -1.0, -2.0, -1.0, 0.0,  0.0,
                               0.0,  -1.0, 0.0,  0.0};
-  float kernel_sobel_x[] = {-1.0, 0.0, 1.0, -2.0, 0.0, 2.0, -1.0, 0.0, 1.0};
-  float kernel_sobel_y[] = {1.0, 2.0, 1.0, 0.0, 0.0, 0.0, -1.0, -2.0, -1.0};
+  float kernel_sobel_x[] = {0, 0, 0, 0,  0, 0, -1, 0, 1, 0, 0, -2, 0,
+                            2, 0, 0, -1, 0, 1, 0,  0, 0, 0, 0, 0};
+
+  float kernel_sobel_y[] = {0, 0, 0, 0,  0,  0,  1, 2, 1, 0, 0, 0, 0,
+                            0, 0, 0, -1, -2, -1, 0, 0, 0, 0, 0, 0};
 
   Image *output = process_img(eye, kernel_laplacian, kernel_sobel_x,
                               kernel_sobel_y, img_data);
@@ -68,4 +73,9 @@ int main() {
 
   free_data(data);
   free(config);
+  UnloadImageColors(img_data->pixels);
+  free(eye->kernel);
+  free(eye->kernel_x);
+  free(eye->kernel_y);
+  free(eye);
 }

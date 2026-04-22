@@ -1,4 +1,5 @@
 #include "eye.h"
+#include <stdint.h>
 
 #ifndef ENCODE_H
 #define ENCODE_H
@@ -9,7 +10,7 @@ typedef struct {
   int width;
   int height;
   int T;
-  int *data;
+  uint8_t *data;
 } SpikeTrain;
 
 SpikeTrain *rate_encode(ImageData *img_data, int T);

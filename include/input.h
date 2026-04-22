@@ -1,5 +1,7 @@
+#include <stddef.h>
+
 typedef struct {
-  int *conns;
+  size_t *conns;
   float *weights;
   int out_n; // The number of neurons to connect to (network)
   int in_n;  // The number of input neurons

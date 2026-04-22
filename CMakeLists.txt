@@ -56,9 +56,14 @@ target_link_libraries(foo PRIVATE snn_c snn_cuda)
 add_executable(test_main src/test.c)
 target_link_libraries(test_main PRIVATE snn_c snn_cuda)
 
+
+add_executable(net src/net.c)
+target_link_libraries(net PRIVATE snn_c snn_cuda)
+
 target_link_libraries(main PRIVATE CUDA::cudart)
 target_link_libraries(test_main PRIVATE CUDA::cudart raylib)
 target_link_libraries(foo PRIVATE CUDA::cudart raylib)
+target_link_libraries(net PRIVATE CUDA::cudart raylib)
 
 
 message(STATUS "CUDA include dir: ${CUDAToolkit_INCLUDE_DIRS}")

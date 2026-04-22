@@ -1,7 +1,7 @@
 #include <stdlib.h>
 
-int *generate_connections(int in_n, int out_n, int n_conns) {
-  int *conns = (int *)malloc(sizeof(int) * in_n * n_conns);
+size_t *generate_connections(int in_n, int out_n, int n_conns) {
+  size_t *conns = (size_t *)malloc(sizeof(size_t) * in_n * n_conns);
 
   if (conns == NULL) {
     return NULL;

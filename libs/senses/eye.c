@@ -15,21 +15,31 @@ ImageData *get_image_data(char *path) {
   data->width = img.width;
   data->pixels = pixels;
 
-  printf("format: %d", img.format);
-
   return data;
 }
 
 ReceptorResponse *receptor(EyeReceptor config, ImageData *img) {
-  int out_h = config.height / config.stride;
-  int out_w = config.width / config.stride;
-  float *output_layer_r = malloc(sizeof(float) * img->width * img->height);
-  float *output_layer_g = malloc(sizeof(float) * img->width * img->height);
-  float *output_layer_b = malloc(sizeof(float) * img->width * img->height);
+  if (img == NULL || config.kernel_size > config.height ||
+      config.kernel_size > config.width) {
+    fprintf(stderr, "Error: image too small for kernel\n");
+    return NULL;
+  }
+  // int out_h = config.height / config.stride;
+  // int out_w = config.width / config.stride;
+
+  int out_h = ((config.height - config.kernel_size) / config.stride) + 1;
+  int out_w = ((config.width - config.kernel_size) / config.stride) + 1;
+
+  float *output_layer_r = calloc(out_w * out_h, sizeof(float));
+  float *output_layer_g = calloc(out_w * out_h, sizeof(float));
+  float *output_layer_b = calloc(out_w * out_h, sizeof(float));
+
   Color *pixels = malloc(sizeof(Color) * out_w * out_h);
 
-  for (int row = 0; row < config.height; row += config.stride) {
-    for (int col = 0; col < config.width; col += config.stride) {
+  for (int row = 0; row < config.height - config.kernel_size;
+       row += config.stride) {
+    for (int col = 0; col < config.width - config.kernel_size;
+         col += config.stride) {
 
       // printf("\nx: %d | y: %d", col, row);
       float sum_r = 0.0;
@@ -67,17 +77,20 @@ ReceptorResponse *receptor(EyeReceptor config, ImageData *img) {
           sum_b += (float)pixel.b * weight;
         }
       }
-      sum_r /= config.kernel_size * config.kernel_size;
-      sum_g /= config.kernel_size * config.kernel_size;
-      sum_b /= config.kernel_size * config.kernel_size;
 
-      sobel_r_x /= config.kernel_size * config.kernel_size;
-      sobel_g_x /= config.kernel_size * config.kernel_size;
-      sobel_b_x /= config.kernel_size * config.kernel_size;
+      float area = (float)(config.kernel_size * config.kernel_size);
 
-      sobel_r_y /= config.kernel_size * config.kernel_size;
-      sobel_g_y /= config.kernel_size * config.kernel_size;
-      sobel_b_y /= config.kernel_size * config.kernel_size;
+      sum_r /= area;
+      sum_g /= area;
+      sum_b /= area;
+
+      sobel_r_x /= area;
+      sobel_g_x /= area;
+      sobel_b_x /= area;
+
+      sobel_r_y /= area;
+      sobel_g_y /= area;
+      sobel_b_y /= area;
 
       float mag_r = sqrt(pow(sobel_r_x, 2) + pow(sobel_r_y, 2));
       float mag_g = sqrt(pow(sobel_g_x, 2) + pow(sobel_g_y, 2));
@@ -92,6 +105,7 @@ ReceptorResponse *receptor(EyeReceptor config, ImageData *img) {
       // output_layer_r[out_idx] = mag_r;
       // output_layer_g[out_idx] = mag_g;
       // output_layer_b[out_idx] = mag_b;
+
       if ((unsigned char)sum_r > 150.0 && (unsigned char)sum_g > 150.0 &&
           (unsigned char)sum_b > 150.0) {
         output_layer_r[out_idx] = sum_r;
@@ -110,21 +124,10 @@ ReceptorResponse *receptor(EyeReceptor config, ImageData *img) {
   }
 
   ReceptorResponse *res = malloc(sizeof(ReceptorResponse));
-
   res->output_layer_r = output_layer_r;
   res->output_layer_g = output_layer_g;
   res->output_layer_b = output_layer_b;
   res->pixels = pixels;
-
-  // for (int row = 0; row < config.height; row += config.stride) {
-  //   for (int col = 0; col < config.width; col += config.stride) {
-  //     int out_row = row / config.stride;
-  //     int out_col = col / config.stride;
-  //     int out_idx = out_row * out_w + out_col;
-  //     printf("(%f, %f, %f)", (float)res->pixels[out_idx].r,
-  //            (float)res->pixels[out_idx].g, (float)res->pixels[out_idx].b);
-  //   }
-  // };
   res->out_w = out_w;
   res->out_h = out_h;
   return res;
@@ -132,10 +135,12 @@ ReceptorResponse *receptor(EyeReceptor config, ImageData *img) {
 
 Image *process_img(EyeReceptor *eye, float *kernel_main, float *kernel_x,
                    float *kernel_y, ImageData *img_data) {
+  if (eye == NULL) {
+    return NULL;
+  }
 
   for (int kx = 0; kx < eye->kernel_size; kx++) {
     for (int ky = 0; ky < eye->kernel_size; ky++) {
-      // eye->kernel[ky * eye->kernel_size + kx] = 1.0;
       eye->kernel[ky * eye->kernel_size + kx] =
           kernel_main[ky * eye->kernel_size + kx];
       eye->kernel_x[ky * eye->kernel_size + kx] =
@@ -144,8 +149,6 @@ Image *process_img(EyeReceptor *eye, float *kernel_main, float *kernel_x,
           kernel_y[ky * eye->kernel_size + kx];
     }
   }
-
-  printf("image w: %d | h: %d\n", img_data->width, img_data->height);
 
   ReceptorResponse *output = receptor(*eye, img_data);
 
@@ -156,6 +159,7 @@ Image *process_img(EyeReceptor *eye, float *kernel_main, float *kernel_x,
   processed_img->format = PIXELFORMAT_UNCOMPRESSED_R8G8B8A8;
   processed_img->data = output->pixels;
   processed_img->mipmaps = 1;
+  printf("image w: %d | h: %d\n", img_data->width, img_data->height);
 
   return processed_img;
 }
