@@ -1,21 +1,24 @@
 #include "data.h"
 #include "config.h"
+#include "encode.h"
 #include "utils.h"
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-int init_data(Config *config, NetworkData *data) {
+int init_data(Config *config, NetworkData *data, SpikeTrain *input_train) {
   data->membranes = (float *)malloc(sizeof(float) * config->n_neurons);
 
-  data->conns = generate_connections(config->n_neurons, config->n_conns);
+  data->conns = generate_connections(config->n_neurons, config->n_neurons,
+                                     config->n_conns);
 
   data->weights = generate_weights(config->n_neurons, config->n_neurons,
                                    config->w_min, config->w_max);
 
-  data->pre_spikes = (int *)malloc(sizeof(int) * config->n_neurons);
+  data->pre_spikes = (uint8_t *)malloc(sizeof(uint8_t) * config->n_neurons);
 
-  data->post_spikes = (int *)malloc(sizeof(int) * config->n_neurons);
+  data->post_spikes = (uint8_t *)malloc(sizeof(uint8_t) * config->n_neurons);
 
   data->thresholds = (float *)malloc(sizeof(float) * config->n_neurons);
 
@@ -23,11 +26,11 @@ int init_data(Config *config, NetworkData *data) {
 
   data->post_trace = (float *)malloc(sizeof(float) * config->n_neurons);
 
-  data->refactory = (int *)malloc(sizeof(int) * config->n_neurons);
+  data->refactory = (uint8_t *)malloc(sizeof(uint8_t) * config->n_neurons);
 
   memset(data->pre_trace, 0, config->n_neurons * sizeof(float));
   memset(data->post_trace, 0, config->n_neurons * sizeof(float));
-  memset(data->refactory, 0, config->n_neurons * sizeof(int));
+  memset(data->refactory, 0, config->n_neurons * sizeof(uint8_t));
 
   for (int i = 0; i < config->n_neurons; i++) {
     double random_num = (double)rand() / ((double)RAND_MAX + 1.0);
@@ -35,7 +38,12 @@ int init_data(Config *config, NetworkData *data) {
     double random_num3 = (double)rand() / ((double)RAND_MAX + 1.0);
 
     data->membranes[i] = random_num;
-    data->pre_spikes[i] = random_num > config->sparsity ? 0 : 1;
+    int px = i % input_train->width;
+    int py = i / input_train->width;
+    data->pre_spikes[i] = SPIKE(input_train, py, px, 0);
+    // data->pre_spikes[i] = SPIKE(input_train, i, i, 0);
+
+    // data->pre_spikes[i] = random_num > config->sparsity ? 0 : 1;
     data->post_spikes[i] = random_num2 > config->sparsity ? 0 : 1;
     data->thresholds[i] = random_num3;
   }

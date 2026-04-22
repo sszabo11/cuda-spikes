@@ -14,7 +14,7 @@ int main() {
   int n_neurons = 1000000;
   int n_conns = 10;
 
-  float sparsity = 0.2;
+  float sparsity = 0.05;
 
   Config *config = malloc(sizeof(Config));
   NetworkData *data = malloc(sizeof(NetworkData));
@@ -34,7 +34,7 @@ int main() {
   config->sparsity = sparsity;
   config->T = T;
 
-  init_data(config, data);
+  init_data(config, data, NULL);
 
   printf("\nPrior: %f\n", data->membranes[64]);
   cudaError_t res = process(config, data);

@@ -1,14 +1,15 @@
 #include "config.h"
 #include "data.h"
 #include "spike.h"
-#include <cstdio>
 #include <cuda_runtime.h>
 #include <math.h>
+#include <stddef.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 
-__global__ void propagate(float *membranes, int *conns, float *weights,
-                          int *spikes, int n_neurons, int n_conns) {
+__global__ void propagate(float *membranes, size_t *conns, float *weights,
+                          uint8_t *spikes, int n_neurons, int n_conns) {
   int i = threadIdx.x + blockIdx.x * blockDim.x;
 
   if (i >= n_neurons)
@@ -23,12 +24,13 @@ __global__ void propagate(float *membranes, int *conns, float *weights,
   membranes[i] += sum;
 }
 
-__global__ void update(float *membranes, int *conns, float *weights,
-                       float *thresholds, int *post_spikes, int *pre_spikes,
-                       int *refactory, float *pre_trace, float *post_trace,
-                       float tau_plus, float tau_minus, float base_threshold,
-                       float beta, float a_plus, float a_minus, float w_min,
-                       float w_max, int n_neurons, int n_conns) {
+__global__ void update(float *membranes, size_t *conns, float *weights,
+                       float *thresholds, uint8_t *post_spikes,
+                       uint8_t *pre_spikes, uint8_t *refactory,
+                       float *pre_trace, float *post_trace, float tau_plus,
+                       float tau_minus, float base_threshold, float beta,
+                       float a_plus, float a_minus, float w_min, float w_max,
+                       int n_neurons, int n_conns) {
   int i = threadIdx.x + blockIdx.x * blockDim.x;
 
   if (i >= n_neurons)

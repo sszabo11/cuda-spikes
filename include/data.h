@@ -1,16 +1,19 @@
 #include "config.h"
+#include "encode.h"
+#include <stddef.h>
+#include <stdint.h>
 
 #ifndef DATA_H
 #define DATA_H
 
 typedef struct {
   float *membranes;
-  int *conns;
+  size_t *conns;
   float *weights;
   float *thresholds;
-  int *post_spikes;
-  int *pre_spikes;
-  int *refactory;
+  uint8_t *post_spikes;
+  uint8_t *pre_spikes;
+  uint8_t *refactory;
   float *pre_trace;
   float *post_trace;
 } NetworkData;
@@ -27,5 +30,5 @@ typedef struct {
 } AllData;
 
 #endif
-int init_data(Config *config, NetworkData *data);
+int init_data(Config *config, NetworkData *data, SpikeTrain *input_train);
 void free_data(NetworkData *data);

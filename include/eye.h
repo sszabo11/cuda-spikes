@@ -1,13 +1,16 @@
 #include <raylib.h>
+#include <stdint.h>
 
 #ifndef PERSON_H
 #define PERSON_H
 typedef struct {
   int width;
   int height;
-  int kernel_size;
+  uint8_t kernel_size;
   int stride;
-  float *kernel; // Matrix of weighted values for each pixel
+  float *kernel;   // Matrix of weighted values for each pixel
+  float *kernel_x; // Matrix of weighted values for each pixel
+  float *kernel_y; // Matrix of weighted values for each pixel
 } EyeReceptor;
 
 typedef struct {
@@ -28,4 +31,7 @@ typedef struct {
 ImageData *get_image_data(char *path);
 
 ReceptorResponse *receptor(EyeReceptor config, ImageData *img);
+
+Image *process_img(EyeReceptor *eye, float *kernel_main, float *kernel_x,
+                   float *kernel_y, ImageData *img_data);
 #endif

@@ -22,14 +22,14 @@ cudaError_t process(Config *config, NetworkData *data) {
   }
 
   float *d_membranes;
-  int *d_conns;
+  size_t *d_conns;
   float *d_weights;
   float *d_thresholds;
   float *d_pre_trace;
   float *d_post_trace;
-  int *d_post_spikes;
-  int *d_refactory;
-  int *d_pre_spikes;
+  uint8_t *d_post_spikes;
+  uint8_t *d_refactory;
+  uint8_t *d_pre_spikes;
 
   int n_neurons = config->n_neurons;
   int n_conns = config->n_conns;
@@ -37,22 +37,22 @@ cudaError_t process(Config *config, NetworkData *data) {
   NetworkData d_data;
 
   cudaMalloc((void **)&d_membranes, n_neurons * sizeof(float));
-  cudaMalloc((void **)&d_conns, n_neurons * n_conns * sizeof(int));
+  cudaMalloc((void **)&d_conns, n_neurons * n_conns * sizeof(size_t));
   cudaMalloc((void **)&d_weights, n_neurons * n_conns * sizeof(float));
-  cudaMalloc((void **)&d_pre_spikes, n_neurons * sizeof(int));
-  cudaMalloc((void **)&d_post_spikes, n_neurons * sizeof(int));
+  cudaMalloc((void **)&d_pre_spikes, n_neurons * sizeof(uint8_t));
+  cudaMalloc((void **)&d_post_spikes, n_neurons * sizeof(uint8_t));
   cudaMalloc((void **)&d_pre_trace, n_neurons * sizeof(float));
   cudaMalloc((void **)&d_post_trace, n_neurons * sizeof(float));
-  cudaMalloc((void **)&d_refactory, n_neurons * sizeof(int));
+  cudaMalloc((void **)&d_refactory, n_neurons * sizeof(uint8_t));
   cudaMalloc((void **)&d_thresholds, n_neurons * sizeof(float));
 
   cudaMemcpy(d_membranes, data->membranes, n_neurons * sizeof(float),
              cudaMemcpyHostToDevice);
-  cudaMemcpy(d_conns, data->conns, n_neurons * n_conns * sizeof(int),
+  cudaMemcpy(d_conns, data->conns, n_neurons * n_conns * sizeof(size_t),
              cudaMemcpyHostToDevice);
   cudaMemcpy(d_weights, data->weights, n_neurons * n_conns * sizeof(float),
              cudaMemcpyHostToDevice);
-  cudaMemcpy(d_pre_spikes, data->pre_spikes, n_neurons * sizeof(int),
+  cudaMemcpy(d_pre_spikes, data->pre_spikes, n_neurons * sizeof(uint8_t),
              cudaMemcpyHostToDevice);
 
   cudaMemcpy(d_thresholds, data->thresholds, n_neurons * sizeof(float),
@@ -64,10 +64,10 @@ cudaError_t process(Config *config, NetworkData *data) {
   cudaMemcpy(d_post_trace, data->post_trace, n_neurons * sizeof(float),
              cudaMemcpyHostToDevice);
 
-  cudaMemcpy(d_post_spikes, data->post_spikes, n_neurons * sizeof(int),
+  cudaMemcpy(d_post_spikes, data->post_spikes, n_neurons * sizeof(uint8_t),
              cudaMemcpyHostToDevice);
 
-  cudaMemcpy(d_refactory, data->refactory, n_neurons * sizeof(int),
+  cudaMemcpy(d_refactory, data->refactory, n_neurons * sizeof(uint8_t),
              cudaMemcpyHostToDevice);
 
   d_data.membranes = d_membranes;
@@ -81,21 +81,21 @@ cudaError_t process(Config *config, NetworkData *data) {
   d_data.thresholds = d_thresholds;
 
   // Input encode one timestep
-  cudaError_t err_i = run_kernels(config, &d_data);
+  // cudaError_t err_i = run_kernels(config, &d_data);
 
   // Network process one timestep
   cudaError_t err_n = run_kernels(config, &d_data);
 
   // Output decode on timestep
-  cudaError_t err_o = run_kernels(config, &d_data);
+  // cudaError_t err_o = run_kernels(config, &d_data);
 
   cudaMemcpy(data->membranes, d_membranes, n_neurons * sizeof(float),
              cudaMemcpyDeviceToHost);
-  cudaMemcpy(data->conns, d_conns, n_neurons * n_conns * sizeof(int),
+  cudaMemcpy(data->conns, d_conns, n_neurons * n_conns * sizeof(size_t),
              cudaMemcpyDeviceToHost);
   cudaMemcpy(data->weights, d_weights, n_neurons * n_conns * sizeof(float),
              cudaMemcpyDeviceToHost);
-  cudaMemcpy(data->pre_spikes, d_pre_spikes, n_neurons * sizeof(int),
+  cudaMemcpy(data->pre_spikes, d_pre_spikes, n_neurons * sizeof(uint8_t),
              cudaMemcpyDeviceToHost);
   cudaMemcpy(data->thresholds, d_thresholds, n_neurons * sizeof(float),
              cudaMemcpyDeviceToHost);
@@ -106,10 +106,10 @@ cudaError_t process(Config *config, NetworkData *data) {
   cudaMemcpy(data->post_trace, d_post_trace, n_neurons * sizeof(float),
              cudaMemcpyDeviceToHost);
 
-  cudaMemcpy(data->post_spikes, d_post_spikes, n_neurons * sizeof(int),
+  cudaMemcpy(data->post_spikes, d_post_spikes, n_neurons * sizeof(uint8_t),
              cudaMemcpyDeviceToHost);
 
-  cudaMemcpy(data->refactory, d_refactory, n_neurons * sizeof(int),
+  cudaMemcpy(data->refactory, d_refactory, n_neurons * sizeof(uint8_t),
              cudaMemcpyDeviceToHost);
 
   cudaFree(d_membranes);
@@ -122,5 +122,5 @@ cudaError_t process(Config *config, NetworkData *data) {
   cudaFree(d_post_trace);
   cudaFree(d_thresholds);
 
-  return cudaSuccess;
+  return err_n;
 }

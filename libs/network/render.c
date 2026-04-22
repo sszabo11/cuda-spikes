@@ -1,5 +1,6 @@
 #include "config.h"
 #include "data.h"
+#include "encode.h"
 #include "math.h"
 #include "process.h"
 #include "raylib.h"
@@ -30,7 +31,7 @@ Vector2 *rand_cords(int n, int min_x, int max_x, int min_y, int max_y) {
   return cords;
 }
 
-int render(Config *config, NetworkData *data) {
+int render(Config *config, NetworkData *data, SpikeTrain *input_train) {
   Vector2 *cords =
       rand_cords(config->n_neurons, 200, WIDTH - 200, 50, HEIGHT - 50);
   Vector2 *cords_input = rand_cords(inputs, 50, 200, 50, HEIGHT - 50);
@@ -48,6 +49,8 @@ int render(Config *config, NetworkData *data) {
 
   BeginBlendMode(BLEND_ALPHA);
   UnloadImage(image);
+  printf("raylib Version: %i.%i.%i\n", RAYLIB_VERSION_MAJOR,
+         RAYLIB_VERSION_MINOR, RAYLIB_VERSION_PATCH);
 
   Color redish = {255, 59, 0, 100};
   Color Blue1 = {0, 187, 255, 100};
@@ -70,31 +73,39 @@ int render(Config *config, NetworkData *data) {
     DrawText("NEUROMESH", 20, 20, 16, LIGHTGRAY);
 
     if (frame % 3 == 0) {
+      // data->pre_spikes = SPIKE(input_train, 0, 0, frame); // TImESTEOS?
       cudaError_t res = process(config, data);
     }
     for (int i = 0; i < config->n_neurons; i++) {
       // DrawCircleGradient(cords[i].x, cords[i].y, 12, Blue3, Blue4);
       // DrawCircleGradient(cords[i].x, cords[i].y, 6, Blue1, Blue2);
-
       if (data->post_spikes[i] == 1) {
-        // DrawSphere((Vector3){cords[i].x, cords[i].y, 0}, 10, WHITE);
-        DrawCircleGradient(cords[i].x, cords[i].y, 10, WHITE, White2);
-        DrawCircleGradient(cords[i].x, cords[i].y, 4, LightBlue, WHITE);
+        // DrawCircle(cords[i].x, cords[i].y, 20, WHITE);
+        DrawCircleGradient((Vector2){cords[i].x, cords[i].y}, 10, WHITE,
+                           White2);
+        // DrawCircleGradient((Vector2){cords[i].x, cords[i].y}, 10.0, YELLOW,
+        // MAROON);
+        DrawCircleGradient((Vector2){cords[i].x, cords[i].y}, 4, LightBlue,
+                           WHITE);
       } else {
-        DrawCircleGradient(cords[i].x, cords[i].y, 6, NearWhite, OffWhite);
-        DrawCircleGradient(cords[i].x, cords[i].y, 4, OffWhite, OffGrey);
+        DrawCircleGradient((Vector2){cords[i].x, cords[i].y}, 6, NearWhite,
+                           OffWhite);
+        DrawCircleGradient((Vector2){cords[i].x, cords[i].y}, 4, OffWhite,
+                           OffGrey);
       }
     }
 
     for (int i = 0; i < inputs; i++) {
-      DrawCircleGradient(cords_input[i].x, cords_input[i].y, 10, YELLOW,
-                         LightYellow);
-      DrawCircleGradient(cords_input[i].x, cords_input[i].y, 6, WHITE, YELLOW);
+      DrawCircleGradient((Vector2){cords_input[i].x, cords_input[i].y}, 10.0,
+                         YELLOW, LightYellow);
+      DrawCircleGradient((Vector2){cords_input[i].x, cords_input[i].y}, 6.0,
+                         WHITE, YELLOW);
     }
     for (int i = 0; i < outputs; i++) {
-      DrawCircleGradient(cords_output[i].x, cords_output[i].y, 10, RED,
-                         LightRed);
-      DrawCircleGradient(cords_output[i].x, cords_output[i].y, 6, WHITE, RED);
+      DrawCircleGradient((Vector2){cords_output[i].x, cords_output[i].y}, 10.0,
+                         RED, LightRed);
+      DrawCircleGradient((Vector2){cords_output[i].x, cords_output[i].y}, 6.0,
+                         WHITE, RED);
     }
     DrawFPS(10, 10);
     EndDrawing();
