@@ -54,7 +54,7 @@ __global__ void update(float *membranes, size_t *conns, float *weights,
 
     membranes[i] = 0.0; // Reset
 
-    refactory[i] = 5; // Inhibit for 3 timesteps
+    refactory[i] = 20; // Inhibit for 3 timesteps
     post_trace[i] += 1.0;
   } else {
     post_spikes[i] = 0;
@@ -80,48 +80,6 @@ __global__ void update(float *membranes, size_t *conns, float *weights,
 }
 
 cudaError_t run_kernels(Config *config, NetworkData *data) {
-  // NetworkData *d_data;
-
-  // cudaMalloc(&d_data->membranes, config->n_neurons * sizeof(float));
-  // cudaMalloc(&d_data->conns, config->n_neurons * config->n_conns *
-  // sizeof(int)); cudaMalloc(&d_data->weights,
-  //            config->n_neurons * config->n_conns * sizeof(float));
-  // cudaMalloc(&d_data->pre_spikes, config->n_neurons * sizeof(int));
-  // cudaMalloc(&d_data->post_spikes, config->n_neurons * sizeof(int));
-  // cudaMalloc(&d_data->pre_trace, config->n_neurons * sizeof(float));
-  // cudaMalloc(&d_data->post_trace, config->n_neurons * sizeof(float));
-  // cudaMalloc(&d_data->refactory, config->n_neurons * sizeof(int));
-  // cudaMalloc(&d_data->thresholds, config->n_neurons * sizeof(float));
-
-  // cudaMemcpy(d_data->membranes, data->membranes,
-  //            config->n_neurons * sizeof(float), cudaMemcpyHostToDevice);
-
-  // cudaMemcpy(d_data->conns, data->conns,
-  //            config->n_neurons * config->n_conns * sizeof(int),
-  //            cudaMemcpyHostToDevice);
-
-  // cudaMemcpy(d_data->weights, data->weights,
-  //            config->n_neurons * config->n_conns * sizeof(float),
-  //            cudaMemcpyHostToDevice);
-
-  // cudaMemcpy(d_data->pre_spikes, data->pre_spikes,
-  //            config->n_neurons * sizeof(int), cudaMemcpyHostToDevice);
-
-  // cudaMemcpy(d_data->post_spikes, data->post_spikes,
-  //            config->n_neurons * sizeof(int), cudaMemcpyHostToDevice);
-
-  // cudaMemcpy(d_data->pre_trace, data->pre_trace,
-  //            config->n_neurons * sizeof(float), cudaMemcpyHostToDevice);
-
-  // cudaMemcpy(d_data->post_trace, data->post_trace,
-  //            config->n_neurons * sizeof(float), cudaMemcpyHostToDevice);
-
-  // cudaMemcpy(d_data->refactory, data->refactory,
-  //            config->n_neurons * sizeof(int), cudaMemcpyHostToDevice);
-
-  // cudaMemcpy(d_data->thresholds, data->thresholds,
-  //            config->n_neurons * sizeof(float), cudaMemcpyHostToDevice);
-
   const int THREADS_PER_BLOCK = 512;
   int n_blocks =
       (config->n_neurons + THREADS_PER_BLOCK - 1) / THREADS_PER_BLOCK;

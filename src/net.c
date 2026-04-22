@@ -2,10 +2,12 @@
 #include "data.h"
 #include "encode.h"
 #include "eye.h"
+#include "logger.h"
 #include "process.h"
 #include "render.h"
 #include "utils.h"
 #include <cuda_runtime.h>
+#include <pthread.h>
 #include <raylib.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -14,8 +16,8 @@
 int main() {
 
   srand(time(NULL));
-  int n_neurons = 1000;
-  int n_conns = 20;
+  int n_neurons = 100;
+  int n_conns = 10;
 
   float sparsity = 0.02;
 
@@ -25,14 +27,14 @@ int main() {
 
   config->n_neurons = n_neurons;
   config->n_conns = n_conns;
-  config->tau_minus = 0.9;
-  config->tau_plus = 0.9;
+  config->tau_minus = 0.95;
+  config->tau_plus = 0.95;
   config->beta = 0.8;
-  config->a_plus = 0.001;
-  config->a_minus = 0.001;
-  config->w_min = 0.3;
-  config->w_max = 0.6;
-  config->base_threshold = 0.3;
+  config->a_plus = 0.01;
+  config->a_minus = 0.012;
+  config->w_min = 0.1;
+  config->w_max = 0.9;
+  config->base_threshold = 0.5;
   config->sparsity = sparsity;
   config->T = T;
 
@@ -69,8 +71,33 @@ int main() {
   init_data(config, data, encoded_data);
   printf("Initalized data");
 
-  render(config, data, encoded_data);
+  init_logs();
 
+  pthread_t render_thread, compute_thread;
+
+  data_mutex_t data_m;
+  data_m.front = data;
+  data_m.back = data;
+  data_m.config = config;
+  data_m.input = encoded_data;
+  data_m.timestep = 0;
+
+  pthread_mutex_init(&data_m.mutex, NULL);
+  pthread_cond_init(&data_m.compute_done, NULL);
+  pthread_cond_init(&data_m.render_done, NULL);
+  data_m.frame_ready = 0;
+
+  pthread_create(&render_thread, NULL, (void *)render_from_thread, &data_m);
+  pthread_create(&compute_thread, NULL, (void *)process_from_thread, &data_m);
+
+  pthread_join(render_thread, NULL);
+  pthread_join(compute_thread, NULL);
+
+  // render(config, data, encoded_data);
+
+  pthread_mutex_destroy(&data_m.mutex);
+  pthread_cond_destroy(&data_m.compute_done);
+  pthread_cond_destroy(&data_m.render_done);
   free_data(data);
   free(config);
   UnloadImageColors(img_data->pixels);
