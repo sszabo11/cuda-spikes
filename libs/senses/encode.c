@@ -1,4 +1,5 @@
 #include "encode.h"
+#include "data.h"
 #include "eye.h"
 #include <stdint.h>
 #include <stdio.h>
@@ -84,3 +85,62 @@ SpikeTrain *rate_encode(ImageData *img_data, int T) {
 }
 
 // TODO: Cuda kernel for rate encoding.
+//
+
+// SpikeTrain *encode_mnist2(mnist_dataset_t *dataset, int n, int T) {
+//   int n_pixels = 28 * 28; // 784
+//
+//   for (int img_idx = 0; img_idx < n; img_idx++) {
+//     uint8_t *img = dataset->images + img_idx * n_pixels;
+//
+//     SpikeTrain *st = malloc(sizeof(SpikeTrain));
+//     st->width = mnist->cols;
+//     st->height = mnist->rows;
+//     st->T = T;
+//     st->data = calloc(n_pixels * T, sizeof(uint8_t));
+//
+//     for (int i = 0; i < n_pixels; i++) {
+//       float rate = img[i] / 255.0f; // 0.0 - 1.0
+//       for (int t = 0; t < T; t++) {
+//         if ((float)rand() / RAND_MAX < rate) {
+//           SPIKE(st, i / mnist->cols, i % mnist->cols, t) = 1;
+//         }
+//       }
+//     }
+//   }
+//   return st;
+// }
+
+SpikeTrain *encode_mnist(mnist_image_t *img, int T) {
+  SpikeTrain *st = malloc(sizeof(SpikeTrain));
+  st->width = MNIST_IMAGE_WIDTH;   // 28
+  st->height = MNIST_IMAGE_HEIGHT; // 28
+  st->T = T;
+  st->data =
+      calloc(MNIST_IMAGE_WIDTH * MNIST_IMAGE_HEIGHT * T, sizeof(uint8_t));
+
+  for (int i = 0; i < MNIST_IMAGE_SIZE; i++) {
+    float rate = img->pixels[i] / 255.0f;
+    int y = i / MNIST_IMAGE_WIDTH;
+    int x = i % MNIST_IMAGE_WIDTH;
+    for (int t = 0; t < T; t++) {
+      if ((float)rand() / RAND_MAX < rate) {
+        SPIKE(st, y, x, t) = 1;
+      }
+    }
+  }
+  return st;
+}
+
+// maps 784 input spikes at timestep t → network pre_spikes
+// samples evenly if n_neurons != 784
+void load_input_spikes(NetworkData *data, SpikeTrain *st, Config *config,
+                       int t) {
+  int n_pixels = st->width * st->height; // 784
+  for (int i = 0; i < config->n_neurons; i++) {
+    int px = (int)((float)i / config->n_neurons * n_pixels);
+    int y = px / st->width;
+    int x = px % st->width;
+    data->pre_spikes[i] = SPIKE(st, y, x, t);
+  }
+}

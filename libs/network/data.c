@@ -20,7 +20,7 @@ int init_data(Config *config, NetworkData *data, SpikeTrain *input_train) {
 
   data->post_spikes = (uint8_t *)malloc(sizeof(uint8_t) * config->n_neurons);
 
-  data->thresholds = (float *)malloc(sizeof(float) * config->n_neurons);
+  data->thresholds = (float *)calloc(sizeof(float), config->n_neurons);
 
   data->pre_trace = (float *)malloc(sizeof(float) * config->n_neurons);
 
@@ -32,6 +32,7 @@ int init_data(Config *config, NetworkData *data, SpikeTrain *input_train) {
   memset(data->post_trace, 0, config->n_neurons * sizeof(float));
   memset(data->refactory, 0, config->n_neurons * sizeof(uint8_t));
 
+  int spikes = 0;
   for (int i = 0; i < config->n_neurons; i++) {
     double random_num = (double)rand() / ((double)RAND_MAX + 1.0);
     double random_num2 = (double)rand() / ((double)RAND_MAX + 1.0);
@@ -40,13 +41,19 @@ int init_data(Config *config, NetworkData *data, SpikeTrain *input_train) {
     data->membranes[i] = random_num;
     int px = i % input_train->width;
     int py = i / input_train->width;
-    data->pre_spikes[i] = SPIKE(input_train, py, px, 0);
+    int spike = SPIKE(input_train, py, px, 0);
+    printf("x,y:  (%d, %d) = %d", px, py, spike);
+    if (spike == 1) {
+      spikes++;
+    }
+    data->pre_spikes[i] = spike;
     // data->pre_spikes[i] = SPIKE(input_train, i, i, 0);
 
     // data->pre_spikes[i] = random_num > config->sparsity ? 0 : 1;
     data->post_spikes[i] = random_num2 > config->sparsity ? 0 : 1;
-    data->thresholds[i] = random_num3;
+    // data->thresholds[i] = random_num3;
   }
+  printf("\nspikes: %d\n", spikes);
 
   int fired = 0;
   for (int i = 0; i < config->n_neurons; i++) {

@@ -9,6 +9,7 @@
 #include <cuda_runtime.h>
 #include <pthread.h>
 #include <raylib.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -16,8 +17,8 @@
 int main() {
 
   srand(time(NULL));
-  int n_neurons = 100;
-  int n_conns = 10;
+  int n_neurons = 2500;
+  int n_conns = 100;
 
   float sparsity = 0.02;
 
@@ -30,15 +31,15 @@ int main() {
   config->tau_minus = 0.95;
   config->tau_plus = 0.95;
   config->beta = 0.8;
-  config->a_plus = 0.01;
-  config->a_minus = 0.012;
-  config->w_min = 0.1;
+  config->a_plus = 0.0003;
+  config->a_minus = 0.00035;
+  config->w_min = -0.5;
   config->w_max = 0.9;
-  config->base_threshold = 0.5;
+  config->base_threshold = 9.5;
   config->sparsity = sparsity;
   config->T = T;
 
-  ImageData *img_data = get_image_data("../data/desktop1.png");
+  ImageData *img_data = get_image_data("../data/mona-lisa50x50.png");
 
   EyeReceptor *eye = malloc(sizeof(EyeReceptor));
   eye->kernel_size = 5;
@@ -66,6 +67,24 @@ int main() {
   printf("\nProcessed image.");
 
   SpikeTrain *encoded_data = rate_encode(img_data, T);
+
+  // SpikeTrain *encoded_data = malloc(sizeof(SpikeTrain));
+  // const int dim = 16;
+
+  // encoded_data->data = malloc(sizeof(uint8_t) * dim);
+  // encoded_data->width = 4;
+  // encoded_data->height = 4;
+
+  // uint8_t stimuli1[] = {
+  //     0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0,
+  // };
+  // uint8_t stimuli2[] = {
+  //     1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1,
+  // };
+  // for (int i = 0; i < dim; i++) {
+  //   encoded_data->data[i] = stimuli2[i];
+  // }
+
   printf("Rate encoded");
 
   init_data(config, data, encoded_data);
@@ -90,6 +109,7 @@ int main() {
   pthread_create(&render_thread, NULL, (void *)render_from_thread, &data_m);
   pthread_create(&compute_thread, NULL, (void *)process_from_thread, &data_m);
 
+  // process(&data_m);
   pthread_join(render_thread, NULL);
   pthread_join(compute_thread, NULL);
 

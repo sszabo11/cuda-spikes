@@ -11,7 +11,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-cudaError_t process(Config *config, NetworkData *data) {
+cudaError_t process(data_mutex_t *obj) {
+  NetworkData *data = obj->back;
+  Config *config = obj->config;
   if (!config->T) {
     printf("Error: Timesteps not specified!");
     return cudaErrorInvalidConfiguration;
@@ -88,7 +90,19 @@ cudaError_t process(Config *config, NetworkData *data) {
   // cudaError_t err_i = run_kernels(config, &d_data);
 
   // Network process one timestep
-  cudaError_t err_n = run_kernels(config, &d_data);
+  while (obj->timestep < 10) {
+    // if (obj->timestep % 100 == 0) {
+    printf("Timestep: %d\n", obj->timestep);
+    //}
+    cudaError_t err_n = run_kernels(config, &d_data);
+    obj->timestep++;
+    obj->frame_ready = 1;
+
+    NetworkData *tmp = obj->front;
+    obj->front = obj->back;
+    obj->back = tmp;
+    write_to_csv(obj, 1);
+  }
 
   // Output decode on timestep
   // cudaError_t err_o = run_kernels(config, &d_data);
@@ -126,92 +140,108 @@ cudaError_t process(Config *config, NetworkData *data) {
   cudaFree(d_post_trace);
   cudaFree(d_thresholds);
 
-  return err_n;
+  return cudaSuccess;
 }
 
 cudaError_t process_from_thread(data_mutex_t *obj) {
-  while (obj->timestep < 500) {
 
-    NetworkData *data = obj->back;
-    Config *config = obj->config;
+  NetworkData *data = obj->back;
+  Config *config = obj->config;
 
-    if (!config->T) {
-      printf("Error: Timesteps not specified!");
-      return cudaErrorInvalidConfiguration;
+  if (!config->T) {
+    printf("Error: Timesteps not specified!");
+    return cudaErrorInvalidConfiguration;
+  }
+  if (!config->n_neurons) {
+    printf("Error: Number of neurons not specified!");
+    return cudaErrorInvalidConfiguration;
+  }
+  if (!config->n_conns) {
+    printf("Error: Connections not specified!");
+    return cudaErrorInvalidConfiguration;
+  }
+
+  float *d_membranes;
+  size_t *d_conns;
+  float *d_weights;
+  float *d_thresholds;
+  float *d_pre_trace;
+  float *d_post_trace;
+  uint8_t *d_post_spikes;
+  uint8_t *d_refactory;
+  uint8_t *d_pre_spikes;
+
+  int n_neurons = config->n_neurons;
+  int n_conns = config->n_conns;
+
+  NetworkData d_data;
+
+  cudaMalloc((void **)&d_membranes, n_neurons * sizeof(float));
+  cudaMalloc((void **)&d_conns, n_neurons * n_conns * sizeof(size_t));
+  cudaMalloc((void **)&d_weights, n_neurons * n_conns * sizeof(float));
+  cudaMalloc((void **)&d_pre_spikes, n_neurons * sizeof(uint8_t));
+  cudaMalloc((void **)&d_post_spikes, n_neurons * sizeof(uint8_t));
+  cudaMalloc((void **)&d_pre_trace, n_neurons * sizeof(float));
+  cudaMalloc((void **)&d_post_trace, n_neurons * sizeof(float));
+  cudaMalloc((void **)&d_refactory, n_neurons * sizeof(uint8_t));
+  cudaMalloc((void **)&d_thresholds, n_neurons * sizeof(float));
+
+  cudaMemcpy(d_membranes, data->membranes, n_neurons * sizeof(float),
+             cudaMemcpyHostToDevice);
+  cudaMemcpy(d_conns, data->conns, n_neurons * n_conns * sizeof(size_t),
+             cudaMemcpyHostToDevice);
+  cudaMemcpy(d_weights, data->weights, n_neurons * n_conns * sizeof(float),
+             cudaMemcpyHostToDevice);
+  cudaMemcpy(d_pre_spikes, data->pre_spikes, n_neurons * sizeof(uint8_t),
+             cudaMemcpyHostToDevice);
+
+  cudaMemcpy(d_thresholds, data->thresholds, n_neurons * sizeof(float),
+             cudaMemcpyHostToDevice);
+
+  cudaMemcpy(d_pre_trace, data->pre_trace, n_neurons * sizeof(float),
+             cudaMemcpyHostToDevice);
+
+  cudaMemcpy(d_post_trace, data->post_trace, n_neurons * sizeof(float),
+             cudaMemcpyHostToDevice);
+
+  cudaMemcpy(d_post_spikes, data->post_spikes, n_neurons * sizeof(uint8_t),
+             cudaMemcpyHostToDevice);
+
+  cudaMemcpy(d_refactory, data->refactory, n_neurons * sizeof(uint8_t),
+             cudaMemcpyHostToDevice);
+
+  d_data.membranes = d_membranes;
+  d_data.conns = d_conns;
+  d_data.weights = d_weights;
+  d_data.pre_spikes = d_pre_spikes;
+  d_data.post_spikes = d_post_spikes;
+  d_data.pre_trace = d_pre_trace;
+  d_data.post_trace = d_post_trace;
+  d_data.refactory = d_refactory;
+  d_data.thresholds = d_thresholds;
+
+  // Input encode one timestep
+  // cudaError_t err_i = run_kernels(config, &d_data);
+
+  while (obj->timestep < 1000) {
+    if (obj->timestep % 100 == 0) {
+      printf("Timestep: %d\n", obj->timestep);
     }
-    if (!config->n_neurons) {
-      printf("Error: Number of neurons not specified!");
-      return cudaErrorInvalidConfiguration;
-    }
-    if (!config->n_conns) {
-      printf("Error: Connections not specified!");
-      return cudaErrorInvalidConfiguration;
-    }
-
-    float *d_membranes;
-    size_t *d_conns;
-    float *d_weights;
-    float *d_thresholds;
-    float *d_pre_trace;
-    float *d_post_trace;
-    uint8_t *d_post_spikes;
-    uint8_t *d_refactory;
-    uint8_t *d_pre_spikes;
-
-    int n_neurons = config->n_neurons;
-    int n_conns = config->n_conns;
-
-    NetworkData d_data;
-
-    cudaMalloc((void **)&d_membranes, n_neurons * sizeof(float));
-    cudaMalloc((void **)&d_conns, n_neurons * n_conns * sizeof(size_t));
-    cudaMalloc((void **)&d_weights, n_neurons * n_conns * sizeof(float));
-    cudaMalloc((void **)&d_pre_spikes, n_neurons * sizeof(uint8_t));
-    cudaMalloc((void **)&d_post_spikes, n_neurons * sizeof(uint8_t));
-    cudaMalloc((void **)&d_pre_trace, n_neurons * sizeof(float));
-    cudaMalloc((void **)&d_post_trace, n_neurons * sizeof(float));
-    cudaMalloc((void **)&d_refactory, n_neurons * sizeof(uint8_t));
-    cudaMalloc((void **)&d_thresholds, n_neurons * sizeof(float));
-
-    cudaMemcpy(d_membranes, data->membranes, n_neurons * sizeof(float),
-               cudaMemcpyHostToDevice);
-    cudaMemcpy(d_conns, data->conns, n_neurons * n_conns * sizeof(size_t),
-               cudaMemcpyHostToDevice);
-    cudaMemcpy(d_weights, data->weights, n_neurons * n_conns * sizeof(float),
-               cudaMemcpyHostToDevice);
-    cudaMemcpy(d_pre_spikes, data->pre_spikes, n_neurons * sizeof(uint8_t),
-               cudaMemcpyHostToDevice);
-
-    cudaMemcpy(d_thresholds, data->thresholds, n_neurons * sizeof(float),
-               cudaMemcpyHostToDevice);
-
-    cudaMemcpy(d_pre_trace, data->pre_trace, n_neurons * sizeof(float),
-               cudaMemcpyHostToDevice);
-
-    cudaMemcpy(d_post_trace, data->post_trace, n_neurons * sizeof(float),
-               cudaMemcpyHostToDevice);
-
-    cudaMemcpy(d_post_spikes, data->post_spikes, n_neurons * sizeof(uint8_t),
-               cudaMemcpyHostToDevice);
-
-    cudaMemcpy(d_refactory, data->refactory, n_neurons * sizeof(uint8_t),
-               cudaMemcpyHostToDevice);
-
-    d_data.membranes = d_membranes;
-    d_data.conns = d_conns;
-    d_data.weights = d_weights;
-    d_data.pre_spikes = d_pre_spikes;
-    d_data.post_spikes = d_post_spikes;
-    d_data.pre_trace = d_pre_trace;
-    d_data.post_trace = d_post_trace;
-    d_data.refactory = d_refactory;
-    d_data.thresholds = d_thresholds;
-
-    // Input encode one timestep
-    // cudaError_t err_i = run_kernels(config, &d_data);
-
     // Network process one timestep
     cudaError_t err_n = run_kernels(config, &d_data);
+    obj->timestep++;
+    pthread_mutex_lock(&obj->mutex);
+    obj->frame_ready = 1;
+    pthread_cond_signal(&obj->compute_done);
+
+    while (obj->frame_ready == 1) {
+      pthread_cond_wait(&obj->render_done, &obj->mutex);
+    }
+    NetworkData *tmp = obj->front;
+    obj->front = obj->back;
+    obj->back = tmp;
+    write_to_csv(obj, 1);
+    pthread_mutex_unlock(&obj->mutex);
 
     // Output decode on timestep
     // cudaError_t err_o = run_kernels(config, &d_data);
@@ -238,30 +268,15 @@ cudaError_t process_from_thread(data_mutex_t *obj) {
 
     cudaMemcpy(data->refactory, d_refactory, n_neurons * sizeof(uint8_t),
                cudaMemcpyDeviceToHost);
-
-    cudaFree(d_membranes);
-    cudaFree(d_conns);
-    cudaFree(d_pre_spikes);
-    cudaFree(d_weights);
-    cudaFree(d_refactory);
-    cudaFree(d_post_spikes);
-    cudaFree(d_pre_trace);
-    cudaFree(d_post_trace);
-    cudaFree(d_thresholds);
-
-    obj->timestep++;
-    pthread_mutex_lock(&obj->mutex);
-    obj->frame_ready = 1;
-    pthread_cond_signal(&obj->compute_done);
-
-    while (obj->frame_ready == 1) {
-      pthread_cond_wait(&obj->render_done, &obj->mutex);
-    }
-    NetworkData *tmp = obj->front;
-    obj->front = obj->back;
-    obj->back = tmp;
-    write_to_csv(obj, 1);
-    pthread_mutex_unlock(&obj->mutex);
   }
+  cudaFree(d_membranes);
+  cudaFree(d_conns);
+  cudaFree(d_pre_spikes);
+  cudaFree(d_weights);
+  cudaFree(d_refactory);
+  cudaFree(d_post_spikes);
+  cudaFree(d_pre_trace);
+  cudaFree(d_post_trace);
+  cudaFree(d_thresholds);
   return CUDA_SUCCESS;
 }

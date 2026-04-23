@@ -37,7 +37,8 @@ int main() {
   init_data(config, data, NULL);
 
   printf("\nPrior: %f\n", data->membranes[64]);
-  cudaError_t res = process(config, data);
+
+  // cudaError_t res = process(config, data);
 
   printf("\nDone: %f\n", data->membranes[64]);
 }

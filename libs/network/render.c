@@ -77,7 +77,7 @@ int render(Config *config, NetworkData *data, SpikeTrain *input_train) {
 
     if (frame % 3 == 0) {
       // data->pre_spikes = SPIKE(input_train, 0, 0, frame); // TImESTEOS?
-      cudaError_t res = process(config, data);
+      // cudaError_t res = process(config, data);
     }
     for (int i = 0; i < config->n_neurons; i++) {
       if (data->post_spikes[i] == 1) {

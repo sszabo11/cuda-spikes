@@ -1,4 +1,5 @@
 #include "eye.h"
+#include "mnist.h"
 #include <stdint.h>
 
 #ifndef ENCODE_H
@@ -14,4 +15,10 @@ typedef struct {
 } SpikeTrain;
 
 SpikeTrain *rate_encode(ImageData *img_data, int T);
+
+// SpikeTrain *encode_mnist(mnist_dataset_t *dataset, int T);
+
+//  SpikeTrain *encode_mnist(mnist_image_t *img, int T);
+//  void load_input_spikes(NetworkData *data, SpikeTrain *st, Config *config,
+//                         int t);
 #endif

@@ -45,7 +45,7 @@ if spikes is not None:
     ax.set_ylabel("Neuron ID")
     ax.set_title("Raster Plot — each dot is a spike")
     plt.tight_layout()
-    plt.savefig(f"{PLOTS_DIR}/1_raster.png", dpi=150)
+    plt.savefig(f"{PLOTS_DIR}/b1_raster.png", dpi=150)
     plt.close()
     print("✓ 1_raster.png")
 
@@ -76,7 +76,7 @@ if population is not None:
         ax.set_xlabel("Timestep")
 
     plt.tight_layout()
-    plt.savefig(f"{PLOTS_DIR}/2_population_summary.png", dpi=150)
+    plt.savefig(f"{PLOTS_DIR}/b2_population_summary.png", dpi=150)
     plt.close()
     print("✓ 2_population_summary.png")
 
@@ -100,7 +100,7 @@ if membranes is not None:
     axes[-1].set_xlabel("Timestep")
     fig.suptitle("Membrane Potential Traces (white lines = spikes)", fontsize=12)
     plt.tight_layout()
-    plt.savefig(f"{PLOTS_DIR}/3_membrane_traces.png", dpi=150)
+    plt.savefig(f"{PLOTS_DIR}/b3_membrane_traces.png", dpi=150)
     plt.close()
     print("✓ 3_membrane_traces.png")
 
@@ -118,7 +118,7 @@ if traces is not None:
     axes[-1].set_xlabel("Timestep")
     fig.suptitle("STDP Pre/Post Traces — should decay between spikes", fontsize=12)
     plt.tight_layout()
-    plt.savefig(f"{PLOTS_DIR}/4_stdp_traces.png", dpi=150)
+    plt.savefig(f"{PLOTS_DIR}/b4_stdp_traces.png", dpi=150)
     plt.close()
     print("✓ 4_stdp_traces.png")
 
@@ -139,7 +139,7 @@ if weights is not None:
 
     fig.suptitle("Weight Distribution — STDP pushes toward bimodal if working", fontsize=12)
     plt.tight_layout()
-    plt.savefig(f"{PLOTS_DIR}/5_weight_distribution.png", dpi=150)
+    plt.savefig(f"{PLOTS_DIR}/b5_weight_distribution.png", dpi=150)
     plt.close()
     print("✓ 5_weight_distribution.png")
 
@@ -161,7 +161,7 @@ if weights is not None:
 
     fig.suptitle("Weight Matrix — structure = learning, noise = no learning", fontsize=12)
     plt.tight_layout()
-    plt.savefig(f"{PLOTS_DIR}/6_weight_heatmap.png", dpi=150)
+    plt.savefig(f"{PLOTS_DIR}/b6_weight_heatmap.png", dpi=150)
     plt.close()
     print("✓ 6_weight_heatmap.png")
 
@@ -179,7 +179,7 @@ if weights is not None:
     ax.set_title("Mean Synaptic Weight ± Std — converging std = weights stabilising")
     ax.legend()
     plt.tight_layout()
-    plt.savefig(f"{PLOTS_DIR}/7_weight_over_time.png", dpi=150)
+    plt.savefig(f"{PLOTS_DIR}/b7_weight_over_time.png", dpi=150)
     plt.close()
     print("✓ 7_weight_over_time.png")
 
@@ -196,7 +196,7 @@ if refractory is not None:
     ax.set_xlabel("Timestep")
     ax.set_ylabel("Neuron ID")
     plt.tight_layout()
-    plt.savefig(f"{PLOTS_DIR}/8_refractory_heatmap.png", dpi=150)
+    plt.savefig(f"{PLOTS_DIR}/b8_refractory_heatmap.png", dpi=150)
     plt.close()
     print("✓ 8_refractory_heatmap.png")
 
@@ -216,7 +216,7 @@ if spikes is not None:
     ax.set_title("Spikes per Neuron — zeros=dead neurons, outliers=hyperactive")
     ax.legend()
     plt.tight_layout()
-    plt.savefig(f"{PLOTS_DIR}/9_spikes_per_neuron.png", dpi=150)
+    plt.savefig(f"{PLOTS_DIR}/b9_spikes_per_neuron.png", dpi=150)
     plt.close()
     print("✓ 9_spikes_per_neuron.png")
 
@@ -232,7 +232,7 @@ if thresholds is not None:
     ax.set_title("Threshold Drift — rising=homeostatic adaptation, flat=no adaptation")
     ax.legend()
     plt.tight_layout()
-    plt.savefig(f"{PLOTS_DIR}/10_threshold_drift.png", dpi=150)
+    plt.savefig(f"{PLOTS_DIR}/b10_threshold_drift.png", dpi=150)
     plt.close()
     print("✓ 10_threshold_drift.png")
 
