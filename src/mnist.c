@@ -15,32 +15,32 @@
 #include <stdlib.h>
 #include <time.h>
 
-const char *train_images_file = "data/train-images-idx3-ubyte";
-const char *train_labels_file = "data/train-labels-idx1-ubyte";
-const char *test_images_file = "data/t10k-images-idx3-ubyte";
-const char *test_labels_file = "data/t10k-labels-idx1-ubyte";
+const char *train_images_file = "../data/mnist/train-images-idx3-ubyte";
+const char *train_labels_file = "../data/mnist/train-labels-idx1-ubyte";
+const char *test_images_file = "../data/mnist/t10k-images-idx3-ubyte";
+const char *test_labels_file = "../data/mnist/t10k-labels-idx1-ubyte";
 
 int main() {
   srand(time(NULL));
-  int n_neurons = 2500;
-  int n_conns = 100;
+  int n_neurons = 784;
+  int n_conns = 10;
 
   float sparsity = 0.02;
 
   Config *config = malloc(sizeof(Config));
   NetworkData *data = malloc(sizeof(NetworkData));
-  int const T = 1;
+  int const T = 300;
 
   config->n_neurons = n_neurons;
   config->n_conns = n_conns;
   config->tau_minus = 0.95;
   config->tau_plus = 0.95;
   config->beta = 0.8;
-  config->a_plus = 0.0003;
-  config->a_minus = 0.00035;
-  config->w_min = -0.5;
+  config->a_plus = 0.003;
+  config->a_minus = 0.0035;
+  config->w_min = 0.1;
   config->w_max = 0.9;
-  config->base_threshold = 9.5;
+  config->base_threshold = 0.5;
   config->sparsity = sparsity;
   config->T = T;
 
@@ -56,40 +56,54 @@ int main() {
   // Initialise a new batch
   // mnist_batch(train_dataset, &batch, 100, i % batches);
 
-  SpikeTrain *encoded_data = encode_mnist(train_dataset, T);
-  printf("Rate encoded");
-
-  init_data(config, data, encoded_data);
-  printf("Initalized data");
-
   init_logs();
-
   pthread_t render_thread, compute_thread;
 
   data_mutex_t data_m;
-  data_m.front = data;
-  data_m.back = data;
-  data_m.config = config;
-  data_m.input = encoded_data;
-  data_m.timestep = 0;
+  // data_m.input = malloc(sizeof(SpikeTrain));
+  init_data(config, data, NULL);
 
-  pthread_mutex_init(&data_m.mutex, NULL);
-  pthread_cond_init(&data_m.compute_done, NULL);
-  pthread_cond_init(&data_m.render_done, NULL);
-  data_m.frame_ready = 0;
+  for (int img_idx = 0; img_idx < 500; img_idx++) {
+    if (img_idx % 10 == 0) {
+      printf("Idx: %d\n", img_idx);
+    }
+    mnist_image_t *img = &train_dataset->images[img_idx];
+    SpikeTrain *st = encode_mnist(img, T);
+    // printf("Encoded\n");
 
-  pthread_create(&render_thread, NULL, (void *)render_from_thread, &data_m);
-  pthread_create(&compute_thread, NULL, (void *)process_from_thread, &data_m);
+    // for (int t = 0; t < T; t++) {
+    //  load_input_spikes(data, st, config, t);
+    data_m.front = data;
+    data_m.back = data;
+    data_m.config = config;
+    data_m.input = st;
+    data_m.timestep = 0;
+    data_m.samples_done = img_idx;
 
-  // process(&data_m);
-  pthread_join(render_thread, NULL);
-  pthread_join(compute_thread, NULL);
+    // printf("%d\n", *data_m.input[200].data);
+    //  data_m.timestep = t;
+
+    // pthread_mutex_init(&data_m.mutex, NULL);
+    // pthread_cond_init(&data_m.compute_done, NULL);
+    // pthread_cond_init(&data_m.render_done, NULL);
+    // data_m.frame_ready = 0;
+
+    // pthread_create(&render_thread, NULL, (void *)render_from_thread,
+    // &data_m); pthread_create(&compute_thread, NULL, (void
+    // *)process_from_thread,
+    //                &data_m);
+
+    process(&data_m);
+    // pthread_join(render_thread, NULL);
+    // pthread_join(compute_thread, NULL);
+    //}
+  }
 
   // render(config, data, encoded_data);
 
-  pthread_mutex_destroy(&data_m.mutex);
-  pthread_cond_destroy(&data_m.compute_done);
-  pthread_cond_destroy(&data_m.render_done);
+  // pthread_mutex_destroy(&data_m.mutex);
+  // pthread_cond_destroy(&data_m.compute_done);
+  // pthread_cond_destroy(&data_m.render_done);
   free_data(data);
   free(config);
   mnist_free_dataset(train_dataset);

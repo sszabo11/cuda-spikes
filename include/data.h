@@ -1,13 +1,13 @@
+
+#ifndef DATA_H
+#define DATA_H
 #include "config.h"
 #include "encode.h"
 #include <pthread.h>
 #include <stddef.h>
 #include <stdint.h>
 
-#ifndef DATA_H
-#define DATA_H
-
-typedef struct {
+typedef struct NetworkData {
   float *membranes;
   size_t *conns;
   float *weights;
@@ -40,8 +40,9 @@ typedef struct {
   pthread_cond_t render_done;
   pthread_cond_t compute_done;
   int frame_ready;
+  int samples_done;
 } data_mutex_t;
-
-#endif
 int init_data(Config *config, NetworkData *data, SpikeTrain *input_train);
 void free_data(NetworkData *data);
+
+#endif

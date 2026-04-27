@@ -1,3 +1,4 @@
+#include "config.h"
 #include "eye.h"
 #include "mnist.h"
 #include <stdint.h>
@@ -7,6 +8,8 @@
 
 #define SPIKE(st, y, x, t) (st)->data[((y) * (st)->width + (x)) * (st)->T + (t)]
 
+typedef struct NetworkData
+    NetworkData; // forward declaration — breaks the cycle
 typedef struct {
   int width;
   int height;
@@ -17,6 +20,11 @@ typedef struct {
 SpikeTrain *rate_encode(ImageData *img_data, int T);
 
 // SpikeTrain *encode_mnist(mnist_dataset_t *dataset, int T);
+SpikeTrain *encode_mnist(mnist_image_t *img, int T);
+
+void load_input_spikes(NetworkData *data, SpikeTrain *st, Config *config,
+                       int t);
+// SpikeTrain *encode_mnist(mnist_image_t *img, int T) {
 
 //  SpikeTrain *encode_mnist(mnist_image_t *img, int T);
 //  void load_input_spikes(NetworkData *data, SpikeTrain *st, Config *config,

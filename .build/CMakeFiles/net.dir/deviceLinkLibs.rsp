@@ -1,0 +1,1 @@
+ libsnn_c.a libsnn_cuda.a  "_deps/raylib-build/raylib/libraylib.a" -lpthread /usr/lib/librt.a -lm -ldl -lcudadevrt -lcudart_static -lrt 

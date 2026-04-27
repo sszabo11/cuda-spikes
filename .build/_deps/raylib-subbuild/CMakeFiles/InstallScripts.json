@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/rabbit/Desktop/cuda-spike/.build/_deps/raylib-subbuild/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

@@ -1,6 +1,7 @@
 #include "encode.h"
 #include "data.h"
 #include "eye.h"
+#include "mnist.h"
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -112,6 +113,7 @@ SpikeTrain *rate_encode(ImageData *img_data, int T) {
 // }
 
 SpikeTrain *encode_mnist(mnist_image_t *img, int T) {
+  // SpikeTrain *encode_mnist(mnist_dataset_t *dataset, int T) {
   SpikeTrain *st = malloc(sizeof(SpikeTrain));
   st->width = MNIST_IMAGE_WIDTH;   // 28
   st->height = MNIST_IMAGE_HEIGHT; // 28
@@ -137,6 +139,7 @@ SpikeTrain *encode_mnist(mnist_image_t *img, int T) {
 void load_input_spikes(NetworkData *data, SpikeTrain *st, Config *config,
                        int t) {
   int n_pixels = st->width * st->height; // 784
+
   for (int i = 0; i < config->n_neurons; i++) {
     int px = (int)((float)i / config->n_neurons * n_pixels);
     int y = px / st->width;

@@ -14,6 +14,9 @@
 cudaError_t process(data_mutex_t *obj) {
   NetworkData *data = obj->back;
   Config *config = obj->config;
+
+  //   data->pre_spikes = obj->input;
+
   if (!config->T) {
     printf("Error: Timesteps not specified!");
     return cudaErrorInvalidConfiguration;
@@ -58,8 +61,6 @@ cudaError_t process(data_mutex_t *obj) {
              cudaMemcpyHostToDevice);
   cudaMemcpy(d_weights, data->weights, n_neurons * n_conns * sizeof(float),
              cudaMemcpyHostToDevice);
-  cudaMemcpy(d_pre_spikes, data->pre_spikes, n_neurons * sizeof(uint8_t),
-             cudaMemcpyHostToDevice);
 
   cudaMemcpy(d_thresholds, data->thresholds, n_neurons * sizeof(float),
              cudaMemcpyHostToDevice);
@@ -90,10 +91,20 @@ cudaError_t process(data_mutex_t *obj) {
   // cudaError_t err_i = run_kernels(config, &d_data);
 
   // Network process one timestep
-  while (obj->timestep < 10) {
-    // if (obj->timestep % 100 == 0) {
-    printf("Timestep: %d\n", obj->timestep);
-    //}
+  while (obj->timestep < 300) {
+    int n_pixels = obj->input->width * obj->input->height; // 784
+
+    for (int i = 0; i < config->n_neurons; i++) {
+      int px = (int)((float)i / config->n_neurons * n_pixels);
+      int y = px / obj->input->width;
+      int x = px % obj->input->width;
+      data->pre_spikes[i] = SPIKE(obj->input, y, x, obj->timestep);
+    }
+    cudaMemcpy(d_pre_spikes, data->pre_spikes, n_neurons * sizeof(uint8_t),
+               cudaMemcpyHostToDevice);
+    // d_data.post_spikes = d_data.pre_spikes;
+    // d_data.pre_spikes = data->pre_spikes;
+    /////
     cudaError_t err_n = run_kernels(config, &d_data);
     obj->timestep++;
     obj->frame_ready = 1;
@@ -101,7 +112,9 @@ cudaError_t process(data_mutex_t *obj) {
     NetworkData *tmp = obj->front;
     obj->front = obj->back;
     obj->back = tmp;
-    write_to_csv(obj, 1);
+    if (obj->samples_done == 0) {
+      write_to_csv(obj, 1);
+    }
   }
 
   // Output decode on timestep
@@ -223,7 +236,7 @@ cudaError_t process_from_thread(data_mutex_t *obj) {
   // Input encode one timestep
   // cudaError_t err_i = run_kernels(config, &d_data);
 
-  while (obj->timestep < 1000) {
+  while (obj->timestep < 100) {
     if (obj->timestep % 100 == 0) {
       printf("Timestep: %d\n", obj->timestep);
     }
