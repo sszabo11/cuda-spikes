@@ -95,7 +95,6 @@ test_main_EXTERNAL_OBJECTS =
 
 CMakeFiles/test_main.dir/cmake_device_link.o: CMakeFiles/test_main.dir/src/test.c.o
 CMakeFiles/test_main.dir/cmake_device_link.o: CMakeFiles/test_main.dir/build.make
-CMakeFiles/test_main.dir/cmake_device_link.o: CMakeFiles/test_main.dir/compiler_depend.ts
 CMakeFiles/test_main.dir/cmake_device_link.o: libsnn_c.a
 CMakeFiles/test_main.dir/cmake_device_link.o: libsnn_cuda.a
 CMakeFiles/test_main.dir/cmake_device_link.o: /opt/cuda/lib/libcudart.so
@@ -128,7 +127,6 @@ test_main_EXTERNAL_OBJECTS =
 
 test_main: CMakeFiles/test_main.dir/src/test.c.o
 test_main: CMakeFiles/test_main.dir/build.make
-test_main: CMakeFiles/test_main.dir/compiler_depend.ts
 test_main: libsnn_c.a
 test_main: libsnn_cuda.a
 test_main: /opt/cuda/lib/libcudart.so

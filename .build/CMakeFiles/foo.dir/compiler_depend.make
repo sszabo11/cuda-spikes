@@ -77,114 +77,18 @@ CMakeFiles/foo.dir/src/foo.c.o: /home/rabbit/Desktop/cuda-spike/src/foo.c \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stdbool.h \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stddef.h
 
-foo: /opt/cuda/lib/libcudart.so \
-  /opt/cuda/targets/x86_64-linux/lib/libcudadevrt.a \
-  /opt/cuda/targets/x86_64-linux/lib/libcudart_static.a \
-  /usr/lib/Scrt1.o \
-  /usr/lib/crti.o \
-  /usr/lib/crtn.o \
-  /usr/lib/libc.so \
-  /usr/lib/libdl.a \
-  /usr/lib/libgcc_s.so \
-  /usr/lib/libgcc_s.so.1 \
-  /usr/lib/libm.so \
-  /usr/lib/libpthread.a \
-  /usr/lib/librt.a \
-  /usr/lib/libstdc++.so \
-  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/crtbeginS.o \
-  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/crtendS.o \
-  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/libgcc.a \
-  /usr/lib/ld-linux-x86-64.so.2 \
-  /usr/lib/libGLU.so \
-  /usr/lib/libGLX.so \
-  /usr/lib/libGLdispatch.so.0 \
-  /usr/lib/libICE.so \
-  /usr/lib/libOpenGL.so \
-  /usr/lib/libSM.so \
-  /usr/lib/libX11.so \
-  /usr/lib/libXau.so.6 \
-  /usr/lib/libXdmcp.so.6 \
-  /usr/lib/libXext.so \
-  /usr/lib/libc.so.6 \
-  /usr/lib/libc_nonshared.a \
-  /usr/lib/libdl.so.2 \
-  /usr/lib/libm.so.6 \
-  /usr/lib/libmvec.so.1 \
-  /usr/lib/libpthread.so.0 \
-  /usr/lib/librt.a \
-  /usr/lib/librt.so.1 \
-  /usr/lib/libuuid.so.1 \
-  /usr/lib/libxcb.so.1 \
-  CMakeFiles/foo.dir/cmake_device_link.o \
-  CMakeFiles/foo.dir/src/foo.c.o \
-  _deps/raylib-build/raylib/libraylib.a \
-  libsnn_c.a \
-  libsnn_cuda.a
-
-
-CMakeFiles/foo.dir/src/foo.c.o:
-
-CMakeFiles/foo.dir/cmake_device_link.o:
-
-_deps/raylib-build/raylib/libraylib.a:
-
-/usr/lib/libxcb.so.1:
-
-/usr/lib/libXau.so.6:
-
-/usr/lib/libICE.so:
-
-/usr/lib/libGLdispatch.so.0:
-
-/usr/lib/libGLU.so:
-
-/usr/lib/ld-linux-x86-64.so.2:
-
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/crtbeginS.o:
-
-/usr/lib/libstdc++.so:
-
-/usr/lib/libm.so:
-
-/usr/lib/libgcc_s.so.1:
-
-/usr/lib/libgcc_s.so:
-
-/usr/lib/libc.so:
-
-/usr/lib/libpthread.so.0:
-
-/usr/lib/libOpenGL.so:
-
-/usr/lib/crtn.o:
-
-/usr/lib/crti.o:
-
-/usr/lib/libc.so.6:
-
-/opt/cuda/targets/x86_64-linux/lib/libcudadevrt.a:
-
-/opt/cuda/lib/libcudart.so:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stddef.h:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stdbool.h:
 
-/usr/lib/libm.so.6:
-
 /usr/include/sys/select.h:
-
-libsnn_c.a:
 
 /usr/include/sys/cdefs.h:
 
 /usr/include/stdlib.h:
 
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/libgcc.a:
-
 /usr/include/pthread.h:
-
-/opt/cuda/targets/x86_64-linux/lib/libcudart_static.a:
 
 /usr/include/gnu/stubs.h:
 
@@ -222,17 +126,11 @@ libsnn_c.a:
 
 /usr/include/bits/pthreadtypes-arch.h:
 
-/usr/lib/libX11.so:
-
-/usr/lib/librt.a:
-
 /usr/include/bits/pthread_stack_min.h:
 
 /usr/include/bits/libc-header-start.h:
 
 _deps/raylib-src/src/raylib.h:
-
-/usr/lib/libdl.so.2:
 
 /usr/include/alloca.h:
 
@@ -246,33 +144,21 @@ _deps/raylib-src/src/raylib.h:
 
 /usr/include/bits/types/struct_itimerspec.h:
 
-/usr/lib/Scrt1.o:
-
 /usr/include/bits/pthread_stack_min-dynamic.h:
-
-/usr/lib/librt.so.1:
 
 /usr/include/bits/endianness.h:
 
 /usr/include/bits/floatn-common.h:
 
-/usr/lib/libuuid.so.1:
-
 /usr/include/bits/long-double.h:
 
 /usr/include/bits/pthreadtypes.h:
-
-/usr/lib/libmvec.so.1:
 
 /usr/include/bits/types/once_flag.h:
 
 /usr/include/bits/floatn.h:
 
-/usr/lib/libc_nonshared.a:
-
 /usr/include/bits/types.h:
-
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/crtendS.o:
 
 /usr/include/bits/types/FILE.h:
 
@@ -282,13 +168,9 @@ _deps/raylib-src/src/raylib.h:
 
 /usr/include/bits/types/__fpos_t.h:
 
-/usr/lib/libXdmcp.so.6:
-
 /usr/include/bits/setjmp.h:
 
 /usr/include/bits/types/struct___jmp_buf_tag.h:
-
-/usr/lib/libXext.so:
 
 /usr/include/bits/wordsize.h:
 
@@ -300,8 +182,6 @@ _deps/raylib-src/src/raylib.h:
 
 /usr/include/bits/types/clock_t.h:
 
-/usr/lib/libGLX.so:
-
 /usr/include/bits/atomic_wide_counter.h:
 
 /usr/include/bits/types/clockid_t.h:
@@ -311,14 +191,6 @@ _deps/raylib-src/src/raylib.h:
 /usr/include/bits/uintn-identity.h:
 
 /usr/include/bits/typesizes.h:
-
-libsnn_cuda.a:
-
-/usr/lib/libSM.so:
-
-/usr/lib/libpthread.a:
-
-/usr/lib/libdl.a:
 
 /usr/include/bits/types/locale_t.h:
 

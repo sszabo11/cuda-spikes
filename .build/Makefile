@@ -418,6 +418,30 @@ libs/mnist/mnist.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/snn_c.dir/build.make CMakeFiles/snn_c.dir/libs/mnist/mnist.c.s
 .PHONY : libs/mnist/mnist.c.s
 
+libs/network/compute.o: libs/network/compute.c.o
+.PHONY : libs/network/compute.o
+
+# target to build an object file
+libs/network/compute.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/snn_c.dir/build.make CMakeFiles/snn_c.dir/libs/network/compute.c.o
+.PHONY : libs/network/compute.c.o
+
+libs/network/compute.i: libs/network/compute.c.i
+.PHONY : libs/network/compute.i
+
+# target to preprocess a source file
+libs/network/compute.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/snn_c.dir/build.make CMakeFiles/snn_c.dir/libs/network/compute.c.i
+.PHONY : libs/network/compute.c.i
+
+libs/network/compute.s: libs/network/compute.c.s
+.PHONY : libs/network/compute.s
+
+# target to generate assembly for a file
+libs/network/compute.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/snn_c.dir/build.make CMakeFiles/snn_c.dir/libs/network/compute.c.s
+.PHONY : libs/network/compute.c.s
+
 libs/network/data.o: libs/network/data.c.o
 .PHONY : libs/network/data.o
 
@@ -441,6 +465,30 @@ libs/network/data.s: libs/network/data.c.s
 libs/network/data.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/snn_c.dir/build.make CMakeFiles/snn_c.dir/libs/network/data.c.s
 .PHONY : libs/network/data.c.s
+
+libs/network/network.o: libs/network/network.c.o
+.PHONY : libs/network/network.o
+
+# target to build an object file
+libs/network/network.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/snn_c.dir/build.make CMakeFiles/snn_c.dir/libs/network/network.c.o
+.PHONY : libs/network/network.c.o
+
+libs/network/network.i: libs/network/network.c.i
+.PHONY : libs/network/network.i
+
+# target to preprocess a source file
+libs/network/network.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/snn_c.dir/build.make CMakeFiles/snn_c.dir/libs/network/network.c.i
+.PHONY : libs/network/network.c.i
+
+libs/network/network.s: libs/network/network.c.s
+.PHONY : libs/network/network.s
+
+# target to generate assembly for a file
+libs/network/network.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/snn_c.dir/build.make CMakeFiles/snn_c.dir/libs/network/network.c.s
+.PHONY : libs/network/network.c.s
 
 libs/network/process.o: libs/network/process.c.o
 .PHONY : libs/network/process.o
@@ -782,9 +830,15 @@ help:
 	@echo "... libs/mnist/mnist.o"
 	@echo "... libs/mnist/mnist.i"
 	@echo "... libs/mnist/mnist.s"
+	@echo "... libs/network/compute.o"
+	@echo "... libs/network/compute.i"
+	@echo "... libs/network/compute.s"
 	@echo "... libs/network/data.o"
 	@echo "... libs/network/data.i"
 	@echo "... libs/network/data.s"
+	@echo "... libs/network/network.o"
+	@echo "... libs/network/network.i"
+	@echo "... libs/network/network.s"
 	@echo "... libs/network/process.o"
 	@echo "... libs/network/process.i"
 	@echo "... libs/network/process.s"

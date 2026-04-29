@@ -87,7 +87,7 @@ int main() {
 
   printf("Rate encoded");
 
-  init_data(config, data, encoded_data);
+  init_network2(config, data, encoded_data);
   printf("Initalized data");
 
   init_logs();
@@ -118,7 +118,7 @@ int main() {
   pthread_mutex_destroy(&data_m.mutex);
   pthread_cond_destroy(&data_m.compute_done);
   pthread_cond_destroy(&data_m.render_done);
-  free_data(data);
+  free_data2(data);
   free(config);
   UnloadImageColors(img_data->pixels);
   free(eye->kernel);

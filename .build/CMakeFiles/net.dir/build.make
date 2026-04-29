@@ -95,7 +95,6 @@ net_EXTERNAL_OBJECTS =
 
 CMakeFiles/net.dir/cmake_device_link.o: CMakeFiles/net.dir/src/net.c.o
 CMakeFiles/net.dir/cmake_device_link.o: CMakeFiles/net.dir/build.make
-CMakeFiles/net.dir/cmake_device_link.o: CMakeFiles/net.dir/compiler_depend.ts
 CMakeFiles/net.dir/cmake_device_link.o: libsnn_c.a
 CMakeFiles/net.dir/cmake_device_link.o: libsnn_cuda.a
 CMakeFiles/net.dir/cmake_device_link.o: /opt/cuda/lib/libcudart.so
@@ -128,7 +127,6 @@ net_EXTERNAL_OBJECTS =
 
 net: CMakeFiles/net.dir/src/net.c.o
 net: CMakeFiles/net.dir/build.make
-net: CMakeFiles/net.dir/compiler_depend.ts
 net: libsnn_c.a
 net: libsnn_cuda.a
 net: /opt/cuda/lib/libcudart.so

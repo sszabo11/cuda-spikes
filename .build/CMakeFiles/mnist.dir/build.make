@@ -95,7 +95,6 @@ mnist_EXTERNAL_OBJECTS =
 
 CMakeFiles/mnist.dir/cmake_device_link.o: CMakeFiles/mnist.dir/src/mnist.c.o
 CMakeFiles/mnist.dir/cmake_device_link.o: CMakeFiles/mnist.dir/build.make
-CMakeFiles/mnist.dir/cmake_device_link.o: CMakeFiles/mnist.dir/compiler_depend.ts
 CMakeFiles/mnist.dir/cmake_device_link.o: libsnn_c.a
 CMakeFiles/mnist.dir/cmake_device_link.o: libsnn_cuda.a
 CMakeFiles/mnist.dir/cmake_device_link.o: /opt/cuda/lib/libcudart.so
@@ -128,7 +127,6 @@ mnist_EXTERNAL_OBJECTS =
 
 mnist: CMakeFiles/mnist.dir/src/mnist.c.o
 mnist: CMakeFiles/mnist.dir/build.make
-mnist: CMakeFiles/mnist.dir/compiler_depend.ts
 mnist: libsnn_c.a
 mnist: libsnn_cuda.a
 mnist: /opt/cuda/lib/libcudart.so

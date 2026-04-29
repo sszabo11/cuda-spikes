@@ -41,8 +41,9 @@ typedef struct {
   pthread_cond_t compute_done;
   int frame_ready;
   int samples_done;
+  int T;
 } data_mutex_t;
-int init_data(Config *config, NetworkData *data, SpikeTrain *input_train);
-void free_data(NetworkData *data);
+int init_network2(Config *config, NetworkData *data, SpikeTrain *input_train);
+void free_data2(NetworkData *data);
 
 #endif

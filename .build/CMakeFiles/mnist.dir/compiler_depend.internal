@@ -10,6 +10,7 @@ CMakeFiles/mnist.dir/src/mnist.c.o
  /home/rabbit/Desktop/cuda-spike/include/eye.h
  /home/rabbit/Desktop/cuda-spike/include/logger.h
  /home/rabbit/Desktop/cuda-spike/include/mnist.h
+ /home/rabbit/Desktop/cuda-spike/include/network.h
  /home/rabbit/Desktop/cuda-spike/include/process.h
  /home/rabbit/Desktop/cuda-spike/include/render.h
  /home/rabbit/Desktop/cuda-spike/include/utils.h
@@ -114,49 +115,4 @@ CMakeFiles/mnist.dir/src/mnist.c.o
  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stddef.h
  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stdint.h
  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/syslimits.h
-
-mnist
- /opt/cuda/lib/libcudart.so
- /opt/cuda/targets/x86_64-linux/lib/libcudadevrt.a
- /opt/cuda/targets/x86_64-linux/lib/libcudart_static.a
- /usr/lib/Scrt1.o
- /usr/lib/crti.o
- /usr/lib/crtn.o
- /usr/lib/libc.so
- /usr/lib/libdl.a
- /usr/lib/libgcc_s.so
- /usr/lib/libgcc_s.so.1
- /usr/lib/libm.so
- /usr/lib/libpthread.a
- /usr/lib/librt.a
- /usr/lib/libstdc++.so
- /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/crtbeginS.o
- /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/crtendS.o
- /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/libgcc.a
- /usr/lib/ld-linux-x86-64.so.2
- /usr/lib/libGLU.so
- /usr/lib/libGLX.so
- /usr/lib/libGLdispatch.so.0
- /usr/lib/libICE.so
- /usr/lib/libOpenGL.so
- /usr/lib/libSM.so
- /usr/lib/libX11.so
- /usr/lib/libXau.so.6
- /usr/lib/libXdmcp.so.6
- /usr/lib/libXext.so
- /usr/lib/libc.so.6
- /usr/lib/libc_nonshared.a
- /usr/lib/libdl.so.2
- /usr/lib/libm.so.6
- /usr/lib/libmvec.so.1
- /usr/lib/libpthread.so.0
- /usr/lib/librt.a
- /usr/lib/librt.so.1
- /usr/lib/libuuid.so.1
- /usr/lib/libxcb.so.1
- /home/rabbit/Desktop/cuda-spike/.build/CMakeFiles/mnist.dir/cmake_device_link.o
- /home/rabbit/Desktop/cuda-spike/.build/CMakeFiles/mnist.dir/src/mnist.c.o
- /home/rabbit/Desktop/cuda-spike/.build/_deps/raylib-build/raylib/libraylib.a
- /home/rabbit/Desktop/cuda-spike/.build/libsnn_c.a
- /home/rabbit/Desktop/cuda-spike/.build/libsnn_cuda.a
 

@@ -88,8 +88,6 @@ cudaError_t run_kernels(Config *config, NetworkData *data) {
       data->membranes, data->conns, data->weights, data->pre_spikes,
       config->n_neurons, config->n_conns);
 
-  // printf("'\n%f\n'", data->membranes[0]);
-
   cudaDeviceSynchronize();
 
   update<<<n_blocks, THREADS_PER_BLOCK>>>(

@@ -19,9 +19,21 @@
 },
 {
   "directory": "/home/rabbit/Desktop/cuda-spike/.build",
+  "command": "/usr/bin/cc  -I/home/rabbit/Desktop/cuda-spike/include -I/home/rabbit/Desktop/cuda-spike/.build/_deps/raylib-src/src -I/opt/cuda/targets/x86_64-linux/include -I/opt/cuda/targets/x86_64-linux/include/cccl -O3 -DNDEBUG -o CMakeFiles/snn_c.dir/libs/network/compute.c.o -c /home/rabbit/Desktop/cuda-spike/libs/network/compute.c",
+  "file": "/home/rabbit/Desktop/cuda-spike/libs/network/compute.c",
+  "output": "CMakeFiles/snn_c.dir/libs/network/compute.c.o"
+},
+{
+  "directory": "/home/rabbit/Desktop/cuda-spike/.build",
   "command": "/usr/bin/cc  -I/home/rabbit/Desktop/cuda-spike/include -I/home/rabbit/Desktop/cuda-spike/.build/_deps/raylib-src/src -I/opt/cuda/targets/x86_64-linux/include -I/opt/cuda/targets/x86_64-linux/include/cccl -O3 -DNDEBUG -o CMakeFiles/snn_c.dir/libs/network/data.c.o -c /home/rabbit/Desktop/cuda-spike/libs/network/data.c",
   "file": "/home/rabbit/Desktop/cuda-spike/libs/network/data.c",
   "output": "CMakeFiles/snn_c.dir/libs/network/data.c.o"
+},
+{
+  "directory": "/home/rabbit/Desktop/cuda-spike/.build",
+  "command": "/usr/bin/cc  -I/home/rabbit/Desktop/cuda-spike/include -I/home/rabbit/Desktop/cuda-spike/.build/_deps/raylib-src/src -I/opt/cuda/targets/x86_64-linux/include -I/opt/cuda/targets/x86_64-linux/include/cccl -O3 -DNDEBUG -o CMakeFiles/snn_c.dir/libs/network/network.c.o -c /home/rabbit/Desktop/cuda-spike/libs/network/network.c",
+  "file": "/home/rabbit/Desktop/cuda-spike/libs/network/network.c",
+  "output": "CMakeFiles/snn_c.dir/libs/network/network.c.o"
 },
 {
   "directory": "/home/rabbit/Desktop/cuda-spike/.build",

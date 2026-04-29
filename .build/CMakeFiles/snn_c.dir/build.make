@@ -114,10 +114,24 @@ CMakeFiles/snn_c.dir/libs/mnist/mnist.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/snn_c.dir/libs/mnist/mnist.c.s"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rabbit/Desktop/cuda-spike/libs/mnist/mnist.c -o CMakeFiles/snn_c.dir/libs/mnist/mnist.c.s
 
+CMakeFiles/snn_c.dir/libs/network/compute.c.o: CMakeFiles/snn_c.dir/flags.make
+CMakeFiles/snn_c.dir/libs/network/compute.c.o: /home/rabbit/Desktop/cuda-spike/libs/network/compute.c
+CMakeFiles/snn_c.dir/libs/network/compute.c.o: CMakeFiles/snn_c.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/rabbit/Desktop/cuda-spike/.build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/snn_c.dir/libs/network/compute.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/snn_c.dir/libs/network/compute.c.o -MF CMakeFiles/snn_c.dir/libs/network/compute.c.o.d -o CMakeFiles/snn_c.dir/libs/network/compute.c.o -c /home/rabbit/Desktop/cuda-spike/libs/network/compute.c
+
+CMakeFiles/snn_c.dir/libs/network/compute.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/snn_c.dir/libs/network/compute.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rabbit/Desktop/cuda-spike/libs/network/compute.c > CMakeFiles/snn_c.dir/libs/network/compute.c.i
+
+CMakeFiles/snn_c.dir/libs/network/compute.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/snn_c.dir/libs/network/compute.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rabbit/Desktop/cuda-spike/libs/network/compute.c -o CMakeFiles/snn_c.dir/libs/network/compute.c.s
+
 CMakeFiles/snn_c.dir/libs/network/data.c.o: CMakeFiles/snn_c.dir/flags.make
 CMakeFiles/snn_c.dir/libs/network/data.c.o: /home/rabbit/Desktop/cuda-spike/libs/network/data.c
 CMakeFiles/snn_c.dir/libs/network/data.c.o: CMakeFiles/snn_c.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/rabbit/Desktop/cuda-spike/.build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/snn_c.dir/libs/network/data.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/rabbit/Desktop/cuda-spike/.build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/snn_c.dir/libs/network/data.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/snn_c.dir/libs/network/data.c.o -MF CMakeFiles/snn_c.dir/libs/network/data.c.o.d -o CMakeFiles/snn_c.dir/libs/network/data.c.o -c /home/rabbit/Desktop/cuda-spike/libs/network/data.c
 
 CMakeFiles/snn_c.dir/libs/network/data.c.i: cmake_force
@@ -128,10 +142,24 @@ CMakeFiles/snn_c.dir/libs/network/data.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/snn_c.dir/libs/network/data.c.s"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rabbit/Desktop/cuda-spike/libs/network/data.c -o CMakeFiles/snn_c.dir/libs/network/data.c.s
 
+CMakeFiles/snn_c.dir/libs/network/network.c.o: CMakeFiles/snn_c.dir/flags.make
+CMakeFiles/snn_c.dir/libs/network/network.c.o: /home/rabbit/Desktop/cuda-spike/libs/network/network.c
+CMakeFiles/snn_c.dir/libs/network/network.c.o: CMakeFiles/snn_c.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/rabbit/Desktop/cuda-spike/.build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/snn_c.dir/libs/network/network.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/snn_c.dir/libs/network/network.c.o -MF CMakeFiles/snn_c.dir/libs/network/network.c.o.d -o CMakeFiles/snn_c.dir/libs/network/network.c.o -c /home/rabbit/Desktop/cuda-spike/libs/network/network.c
+
+CMakeFiles/snn_c.dir/libs/network/network.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/snn_c.dir/libs/network/network.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/rabbit/Desktop/cuda-spike/libs/network/network.c > CMakeFiles/snn_c.dir/libs/network/network.c.i
+
+CMakeFiles/snn_c.dir/libs/network/network.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/snn_c.dir/libs/network/network.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/rabbit/Desktop/cuda-spike/libs/network/network.c -o CMakeFiles/snn_c.dir/libs/network/network.c.s
+
 CMakeFiles/snn_c.dir/libs/network/process.c.o: CMakeFiles/snn_c.dir/flags.make
 CMakeFiles/snn_c.dir/libs/network/process.c.o: /home/rabbit/Desktop/cuda-spike/libs/network/process.c
 CMakeFiles/snn_c.dir/libs/network/process.c.o: CMakeFiles/snn_c.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/rabbit/Desktop/cuda-spike/.build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/snn_c.dir/libs/network/process.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/rabbit/Desktop/cuda-spike/.build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/snn_c.dir/libs/network/process.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/snn_c.dir/libs/network/process.c.o -MF CMakeFiles/snn_c.dir/libs/network/process.c.o.d -o CMakeFiles/snn_c.dir/libs/network/process.c.o -c /home/rabbit/Desktop/cuda-spike/libs/network/process.c
 
 CMakeFiles/snn_c.dir/libs/network/process.c.i: cmake_force
@@ -145,7 +173,7 @@ CMakeFiles/snn_c.dir/libs/network/process.c.s: cmake_force
 CMakeFiles/snn_c.dir/libs/network/render.c.o: CMakeFiles/snn_c.dir/flags.make
 CMakeFiles/snn_c.dir/libs/network/render.c.o: /home/rabbit/Desktop/cuda-spike/libs/network/render.c
 CMakeFiles/snn_c.dir/libs/network/render.c.o: CMakeFiles/snn_c.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/rabbit/Desktop/cuda-spike/.build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/snn_c.dir/libs/network/render.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/rabbit/Desktop/cuda-spike/.build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/snn_c.dir/libs/network/render.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/snn_c.dir/libs/network/render.c.o -MF CMakeFiles/snn_c.dir/libs/network/render.c.o.d -o CMakeFiles/snn_c.dir/libs/network/render.c.o -c /home/rabbit/Desktop/cuda-spike/libs/network/render.c
 
 CMakeFiles/snn_c.dir/libs/network/render.c.i: cmake_force
@@ -159,7 +187,7 @@ CMakeFiles/snn_c.dir/libs/network/render.c.s: cmake_force
 CMakeFiles/snn_c.dir/libs/network/thread.c.o: CMakeFiles/snn_c.dir/flags.make
 CMakeFiles/snn_c.dir/libs/network/thread.c.o: /home/rabbit/Desktop/cuda-spike/libs/network/thread.c
 CMakeFiles/snn_c.dir/libs/network/thread.c.o: CMakeFiles/snn_c.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/rabbit/Desktop/cuda-spike/.build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/snn_c.dir/libs/network/thread.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/rabbit/Desktop/cuda-spike/.build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building C object CMakeFiles/snn_c.dir/libs/network/thread.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/snn_c.dir/libs/network/thread.c.o -MF CMakeFiles/snn_c.dir/libs/network/thread.c.o.d -o CMakeFiles/snn_c.dir/libs/network/thread.c.o -c /home/rabbit/Desktop/cuda-spike/libs/network/thread.c
 
 CMakeFiles/snn_c.dir/libs/network/thread.c.i: cmake_force
@@ -173,7 +201,7 @@ CMakeFiles/snn_c.dir/libs/network/thread.c.s: cmake_force
 CMakeFiles/snn_c.dir/libs/network/utils.c.o: CMakeFiles/snn_c.dir/flags.make
 CMakeFiles/snn_c.dir/libs/network/utils.c.o: /home/rabbit/Desktop/cuda-spike/libs/network/utils.c
 CMakeFiles/snn_c.dir/libs/network/utils.c.o: CMakeFiles/snn_c.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/rabbit/Desktop/cuda-spike/.build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/snn_c.dir/libs/network/utils.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/rabbit/Desktop/cuda-spike/.build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building C object CMakeFiles/snn_c.dir/libs/network/utils.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/snn_c.dir/libs/network/utils.c.o -MF CMakeFiles/snn_c.dir/libs/network/utils.c.o.d -o CMakeFiles/snn_c.dir/libs/network/utils.c.o -c /home/rabbit/Desktop/cuda-spike/libs/network/utils.c
 
 CMakeFiles/snn_c.dir/libs/network/utils.c.i: cmake_force
@@ -187,7 +215,7 @@ CMakeFiles/snn_c.dir/libs/network/utils.c.s: cmake_force
 CMakeFiles/snn_c.dir/libs/senses/encode.c.o: CMakeFiles/snn_c.dir/flags.make
 CMakeFiles/snn_c.dir/libs/senses/encode.c.o: /home/rabbit/Desktop/cuda-spike/libs/senses/encode.c
 CMakeFiles/snn_c.dir/libs/senses/encode.c.o: CMakeFiles/snn_c.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/rabbit/Desktop/cuda-spike/.build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building C object CMakeFiles/snn_c.dir/libs/senses/encode.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/rabbit/Desktop/cuda-spike/.build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building C object CMakeFiles/snn_c.dir/libs/senses/encode.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/snn_c.dir/libs/senses/encode.c.o -MF CMakeFiles/snn_c.dir/libs/senses/encode.c.o.d -o CMakeFiles/snn_c.dir/libs/senses/encode.c.o -c /home/rabbit/Desktop/cuda-spike/libs/senses/encode.c
 
 CMakeFiles/snn_c.dir/libs/senses/encode.c.i: cmake_force
@@ -201,7 +229,7 @@ CMakeFiles/snn_c.dir/libs/senses/encode.c.s: cmake_force
 CMakeFiles/snn_c.dir/libs/senses/eye.c.o: CMakeFiles/snn_c.dir/flags.make
 CMakeFiles/snn_c.dir/libs/senses/eye.c.o: /home/rabbit/Desktop/cuda-spike/libs/senses/eye.c
 CMakeFiles/snn_c.dir/libs/senses/eye.c.o: CMakeFiles/snn_c.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/rabbit/Desktop/cuda-spike/.build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building C object CMakeFiles/snn_c.dir/libs/senses/eye.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/rabbit/Desktop/cuda-spike/.build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building C object CMakeFiles/snn_c.dir/libs/senses/eye.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/snn_c.dir/libs/senses/eye.c.o -MF CMakeFiles/snn_c.dir/libs/senses/eye.c.o.d -o CMakeFiles/snn_c.dir/libs/senses/eye.c.o -c /home/rabbit/Desktop/cuda-spike/libs/senses/eye.c
 
 CMakeFiles/snn_c.dir/libs/senses/eye.c.i: cmake_force
@@ -215,7 +243,7 @@ CMakeFiles/snn_c.dir/libs/senses/eye.c.s: cmake_force
 CMakeFiles/snn_c.dir/libs/senses/input.c.o: CMakeFiles/snn_c.dir/flags.make
 CMakeFiles/snn_c.dir/libs/senses/input.c.o: /home/rabbit/Desktop/cuda-spike/libs/senses/input.c
 CMakeFiles/snn_c.dir/libs/senses/input.c.o: CMakeFiles/snn_c.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/rabbit/Desktop/cuda-spike/.build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building C object CMakeFiles/snn_c.dir/libs/senses/input.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/rabbit/Desktop/cuda-spike/.build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building C object CMakeFiles/snn_c.dir/libs/senses/input.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/snn_c.dir/libs/senses/input.c.o -MF CMakeFiles/snn_c.dir/libs/senses/input.c.o.d -o CMakeFiles/snn_c.dir/libs/senses/input.c.o -c /home/rabbit/Desktop/cuda-spike/libs/senses/input.c
 
 CMakeFiles/snn_c.dir/libs/senses/input.c.i: cmake_force
@@ -229,7 +257,7 @@ CMakeFiles/snn_c.dir/libs/senses/input.c.s: cmake_force
 CMakeFiles/snn_c.dir/src/foo.c.o: CMakeFiles/snn_c.dir/flags.make
 CMakeFiles/snn_c.dir/src/foo.c.o: /home/rabbit/Desktop/cuda-spike/src/foo.c
 CMakeFiles/snn_c.dir/src/foo.c.o: CMakeFiles/snn_c.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/rabbit/Desktop/cuda-spike/.build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building C object CMakeFiles/snn_c.dir/src/foo.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/rabbit/Desktop/cuda-spike/.build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building C object CMakeFiles/snn_c.dir/src/foo.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/snn_c.dir/src/foo.c.o -MF CMakeFiles/snn_c.dir/src/foo.c.o.d -o CMakeFiles/snn_c.dir/src/foo.c.o -c /home/rabbit/Desktop/cuda-spike/src/foo.c
 
 CMakeFiles/snn_c.dir/src/foo.c.i: cmake_force
@@ -243,7 +271,7 @@ CMakeFiles/snn_c.dir/src/foo.c.s: cmake_force
 CMakeFiles/snn_c.dir/src/main.c.o: CMakeFiles/snn_c.dir/flags.make
 CMakeFiles/snn_c.dir/src/main.c.o: /home/rabbit/Desktop/cuda-spike/src/main.c
 CMakeFiles/snn_c.dir/src/main.c.o: CMakeFiles/snn_c.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/rabbit/Desktop/cuda-spike/.build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building C object CMakeFiles/snn_c.dir/src/main.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/rabbit/Desktop/cuda-spike/.build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building C object CMakeFiles/snn_c.dir/src/main.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/snn_c.dir/src/main.c.o -MF CMakeFiles/snn_c.dir/src/main.c.o.d -o CMakeFiles/snn_c.dir/src/main.c.o -c /home/rabbit/Desktop/cuda-spike/src/main.c
 
 CMakeFiles/snn_c.dir/src/main.c.i: cmake_force
@@ -257,7 +285,7 @@ CMakeFiles/snn_c.dir/src/main.c.s: cmake_force
 CMakeFiles/snn_c.dir/src/mnist.c.o: CMakeFiles/snn_c.dir/flags.make
 CMakeFiles/snn_c.dir/src/mnist.c.o: /home/rabbit/Desktop/cuda-spike/src/mnist.c
 CMakeFiles/snn_c.dir/src/mnist.c.o: CMakeFiles/snn_c.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/rabbit/Desktop/cuda-spike/.build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building C object CMakeFiles/snn_c.dir/src/mnist.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/rabbit/Desktop/cuda-spike/.build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building C object CMakeFiles/snn_c.dir/src/mnist.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/snn_c.dir/src/mnist.c.o -MF CMakeFiles/snn_c.dir/src/mnist.c.o.d -o CMakeFiles/snn_c.dir/src/mnist.c.o -c /home/rabbit/Desktop/cuda-spike/src/mnist.c
 
 CMakeFiles/snn_c.dir/src/mnist.c.i: cmake_force
@@ -271,7 +299,7 @@ CMakeFiles/snn_c.dir/src/mnist.c.s: cmake_force
 CMakeFiles/snn_c.dir/src/net.c.o: CMakeFiles/snn_c.dir/flags.make
 CMakeFiles/snn_c.dir/src/net.c.o: /home/rabbit/Desktop/cuda-spike/src/net.c
 CMakeFiles/snn_c.dir/src/net.c.o: CMakeFiles/snn_c.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/rabbit/Desktop/cuda-spike/.build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building C object CMakeFiles/snn_c.dir/src/net.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/rabbit/Desktop/cuda-spike/.build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building C object CMakeFiles/snn_c.dir/src/net.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/snn_c.dir/src/net.c.o -MF CMakeFiles/snn_c.dir/src/net.c.o.d -o CMakeFiles/snn_c.dir/src/net.c.o -c /home/rabbit/Desktop/cuda-spike/src/net.c
 
 CMakeFiles/snn_c.dir/src/net.c.i: cmake_force
@@ -285,7 +313,7 @@ CMakeFiles/snn_c.dir/src/net.c.s: cmake_force
 CMakeFiles/snn_c.dir/src/test.c.o: CMakeFiles/snn_c.dir/flags.make
 CMakeFiles/snn_c.dir/src/test.c.o: /home/rabbit/Desktop/cuda-spike/src/test.c
 CMakeFiles/snn_c.dir/src/test.c.o: CMakeFiles/snn_c.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/rabbit/Desktop/cuda-spike/.build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building C object CMakeFiles/snn_c.dir/src/test.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/rabbit/Desktop/cuda-spike/.build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building C object CMakeFiles/snn_c.dir/src/test.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/snn_c.dir/src/test.c.o -MF CMakeFiles/snn_c.dir/src/test.c.o.d -o CMakeFiles/snn_c.dir/src/test.c.o -c /home/rabbit/Desktop/cuda-spike/src/test.c
 
 CMakeFiles/snn_c.dir/src/test.c.i: cmake_force
@@ -301,7 +329,9 @@ snn_c_OBJECTS = \
 "CMakeFiles/snn_c.dir/libs/log/csv.c.o" \
 "CMakeFiles/snn_c.dir/libs/log/logger.c.o" \
 "CMakeFiles/snn_c.dir/libs/mnist/mnist.c.o" \
+"CMakeFiles/snn_c.dir/libs/network/compute.c.o" \
 "CMakeFiles/snn_c.dir/libs/network/data.c.o" \
+"CMakeFiles/snn_c.dir/libs/network/network.c.o" \
 "CMakeFiles/snn_c.dir/libs/network/process.c.o" \
 "CMakeFiles/snn_c.dir/libs/network/render.c.o" \
 "CMakeFiles/snn_c.dir/libs/network/thread.c.o" \
@@ -321,7 +351,9 @@ snn_c_EXTERNAL_OBJECTS =
 libsnn_c.a: CMakeFiles/snn_c.dir/libs/log/csv.c.o
 libsnn_c.a: CMakeFiles/snn_c.dir/libs/log/logger.c.o
 libsnn_c.a: CMakeFiles/snn_c.dir/libs/mnist/mnist.c.o
+libsnn_c.a: CMakeFiles/snn_c.dir/libs/network/compute.c.o
 libsnn_c.a: CMakeFiles/snn_c.dir/libs/network/data.c.o
+libsnn_c.a: CMakeFiles/snn_c.dir/libs/network/network.c.o
 libsnn_c.a: CMakeFiles/snn_c.dir/libs/network/process.c.o
 libsnn_c.a: CMakeFiles/snn_c.dir/libs/network/render.c.o
 libsnn_c.a: CMakeFiles/snn_c.dir/libs/network/thread.c.o
@@ -336,7 +368,7 @@ libsnn_c.a: CMakeFiles/snn_c.dir/src/net.c.o
 libsnn_c.a: CMakeFiles/snn_c.dir/src/test.c.o
 libsnn_c.a: CMakeFiles/snn_c.dir/build.make
 libsnn_c.a: CMakeFiles/snn_c.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/rabbit/Desktop/cuda-spike/.build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Linking C static library libsnn_c.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/rabbit/Desktop/cuda-spike/.build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Linking C static library libsnn_c.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/snn_c.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/snn_c.dir/link.txt --verbose=$(VERBOSE)
 

@@ -113,7 +113,6 @@ SpikeTrain *rate_encode(ImageData *img_data, int T) {
 // }
 
 SpikeTrain *encode_mnist(mnist_image_t *img, int T) {
-  // SpikeTrain *encode_mnist(mnist_dataset_t *dataset, int T) {
   SpikeTrain *st = malloc(sizeof(SpikeTrain));
   st->width = MNIST_IMAGE_WIDTH;   // 28
   st->height = MNIST_IMAGE_HEIGHT; // 28

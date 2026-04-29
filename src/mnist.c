@@ -1,9 +1,9 @@
 #include "mnist.h"
 #include "config.h"
-#include "data.h"
 #include "encode.h"
 #include "eye.h"
 #include "logger.h"
+#include "network.h"
 #include "process.h"
 #include "render.h"
 #include "utils.h"
@@ -44,6 +44,9 @@ int main() {
   config->sparsity = sparsity;
   config->T = T;
 
+  Network *net = network_create();
+  init_network(net, config);
+
   mnist_dataset_t *train_dataset, *test_dataset;
   mnist_dataset_t batch;
   float loss, accuracy;
@@ -53,59 +56,52 @@ int main() {
   train_dataset = mnist_get_dataset(train_images_file, train_labels_file);
   test_dataset = mnist_get_dataset(test_images_file, test_labels_file);
 
-  // Initialise a new batch
-  // mnist_batch(train_dataset, &batch, 100, i % batches);
+  // Print digits - works
+  // for (int i = 0; i < 10; i++) {
+  //  mnist_image_t *img = &train_dataset->images[i];
+
+  //  for (int row = 0; row < 28; row++) {
+  //    for (int col = 0; col < 28; col++) {
+  //      // for (int i = 0; i < MNIST_IMAGE_SIZE; i++) {
+
+  //      float pixel = img->pixels[row * 28 + col];
+  //      int y = i / MNIST_IMAGE_WIDTH;
+  //      int x = i % MNIST_IMAGE_WIDTH;
+
+  //      // printf("%f", pixel);
+
+  //      if (img->pixels[row * 28 + col] > 200.0) {
+  //        printf("██");
+  //      } else {
+  //        printf("  ");
+  //      };
+  //    }
+  //    printf("\n");
+  //  }
+  //}
+  // return 1;
 
   init_logs();
-  pthread_t render_thread, compute_thread;
+  // pthread_t render_thread, compute_thread;
 
-  data_mutex_t data_m;
-  // data_m.input = malloc(sizeof(SpikeTrain));
-  init_data(config, data, NULL);
+  // Set weights, conns, thresholds etc
+  printf("Initalized Network\n");
 
-  for (int img_idx = 0; img_idx < 500; img_idx++) {
+  // Network *d_net = send_network_to_gpu(net);
+  printf("Sent to GPU\n");
+
+  // Training
+  for (int img_idx = 0; img_idx < 100; img_idx++) {
     if (img_idx % 10 == 0) {
       printf("Idx: %d\n", img_idx);
     }
     mnist_image_t *img = &train_dataset->images[img_idx];
     SpikeTrain *st = encode_mnist(img, T);
-    // printf("Encoded\n");
-
-    // for (int t = 0; t < T; t++) {
-    //  load_input_spikes(data, st, config, t);
-    data_m.front = data;
-    data_m.back = data;
-    data_m.config = config;
-    data_m.input = st;
-    data_m.timestep = 0;
-    data_m.samples_done = img_idx;
-
-    // printf("%d\n", *data_m.input[200].data);
-    //  data_m.timestep = t;
-
-    // pthread_mutex_init(&data_m.mutex, NULL);
-    // pthread_cond_init(&data_m.compute_done, NULL);
-    // pthread_cond_init(&data_m.render_done, NULL);
-    // data_m.frame_ready = 0;
-
-    // pthread_create(&render_thread, NULL, (void *)render_from_thread,
-    // &data_m); pthread_create(&compute_thread, NULL, (void
-    // *)process_from_thread,
-    //                &data_m);
-
-    process(&data_m);
-    // pthread_join(render_thread, NULL);
-    // pthread_join(compute_thread, NULL);
-    //}
+    free(st->data);
+    free(st);
   }
 
-  // render(config, data, encoded_data);
-
-  // pthread_mutex_destroy(&data_m.mutex);
-  // pthread_cond_destroy(&data_m.compute_done);
-  // pthread_cond_destroy(&data_m.render_done);
-  free_data(data);
-  free(config);
+  network_destroy(net);
   mnist_free_dataset(train_dataset);
   mnist_free_dataset(test_dataset);
 }

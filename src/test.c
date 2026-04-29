@@ -109,13 +109,13 @@ int main() {
   printf("Rate encoded");
 
   // First timestep spikes
-  init_data(config, data, encoded_data);
+  init_network2(config, data, encoded_data);
   printf("Initalized data");
   // for (int t = 0; t < T; t++) {
   //   cudaError_t res = process(config, data);
   // }
   render(config, data, encoded_data);
 
-  free_data(data);
+  free_data2(data);
   free(config);
 }

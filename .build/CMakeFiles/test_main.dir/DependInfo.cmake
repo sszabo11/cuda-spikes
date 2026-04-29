@@ -9,7 +9,6 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/rabbit/Desktop/cuda-spike/src/test.c" "CMakeFiles/test_main.dir/src/test.c.o" "gcc" "CMakeFiles/test_main.dir/src/test.c.o.d"
-  "" "test_main" "gcc" "CMakeFiles/test_main.dir/link.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

@@ -186,12 +186,12 @@ _deps/raylib-build/raylib/external/glfw/src/clean: _deps/raylib-build/raylib/ext
 CMakeFiles/snn_c.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/snn_c.dir/build.make CMakeFiles/snn_c.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/snn_c.dir/build.make CMakeFiles/snn_c.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/rabbit/Desktop/cuda-spike/.build/CMakeFiles --progress-num=43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59 "Built target snn_c"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/rabbit/Desktop/cuda-spike/.build/CMakeFiles --progress-num=43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61 "Built target snn_c"
 .PHONY : CMakeFiles/snn_c.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/snn_c.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/rabbit/Desktop/cuda-spike/.build/CMakeFiles 17
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/rabbit/Desktop/cuda-spike/.build/CMakeFiles 19
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/snn_c.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/rabbit/Desktop/cuda-spike/.build/CMakeFiles 0
 .PHONY : CMakeFiles/snn_c.dir/rule
@@ -203,7 +203,7 @@ snn_c: CMakeFiles/snn_c.dir/rule
 # codegen rule for target.
 CMakeFiles/snn_c.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/snn_c.dir/build.make CMakeFiles/snn_c.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/rabbit/Desktop/cuda-spike/.build/CMakeFiles --progress-num=43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59 "Finished codegen for target snn_c"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/rabbit/Desktop/cuda-spike/.build/CMakeFiles --progress-num=43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61 "Finished codegen for target snn_c"
 .PHONY : CMakeFiles/snn_c.dir/codegen
 
 # clean rule for target.
@@ -218,7 +218,7 @@ CMakeFiles/snn_c.dir/clean:
 CMakeFiles/snn_cuda.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/snn_cuda.dir/build.make CMakeFiles/snn_cuda.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/snn_cuda.dir/build.make CMakeFiles/snn_cuda.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/rabbit/Desktop/cuda-spike/.build/CMakeFiles --progress-num=60,61 "Built target snn_cuda"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/rabbit/Desktop/cuda-spike/.build/CMakeFiles --progress-num=62,63 "Built target snn_cuda"
 .PHONY : CMakeFiles/snn_cuda.dir/all
 
 # Build rule for subdir invocation for target.
@@ -235,7 +235,7 @@ snn_cuda: CMakeFiles/snn_cuda.dir/rule
 # codegen rule for target.
 CMakeFiles/snn_cuda.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/snn_cuda.dir/build.make CMakeFiles/snn_cuda.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/rabbit/Desktop/cuda-spike/.build/CMakeFiles --progress-num=60,61 "Finished codegen for target snn_cuda"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/rabbit/Desktop/cuda-spike/.build/CMakeFiles --progress-num=62,63 "Finished codegen for target snn_cuda"
 .PHONY : CMakeFiles/snn_cuda.dir/codegen
 
 # clean rule for target.
@@ -256,7 +256,7 @@ CMakeFiles/main.dir/all: CMakeFiles/snn_cuda.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/main.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/rabbit/Desktop/cuda-spike/.build/CMakeFiles 22
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/rabbit/Desktop/cuda-spike/.build/CMakeFiles 24
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/main.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/rabbit/Desktop/cuda-spike/.build/CMakeFiles 0
 .PHONY : CMakeFiles/main.dir/rule
@@ -291,7 +291,7 @@ CMakeFiles/foo.dir/all: _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/g
 
 # Build rule for subdir invocation for target.
 CMakeFiles/foo.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/rabbit/Desktop/cuda-spike/.build/CMakeFiles 52
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/rabbit/Desktop/cuda-spike/.build/CMakeFiles 54
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/foo.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/rabbit/Desktop/cuda-spike/.build/CMakeFiles 0
 .PHONY : CMakeFiles/foo.dir/rule
@@ -321,12 +321,12 @@ CMakeFiles/test_main.dir/all: _deps/raylib-build/raylib/CMakeFiles/raylib.dir/al
 CMakeFiles/test_main.dir/all: _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_main.dir/build.make CMakeFiles/test_main.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_main.dir/build.make CMakeFiles/test_main.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/rabbit/Desktop/cuda-spike/.build/CMakeFiles --progress-num=62,63,64 "Built target test_main"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/rabbit/Desktop/cuda-spike/.build/CMakeFiles --progress-num=64,65,66 "Built target test_main"
 .PHONY : CMakeFiles/test_main.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/test_main.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/rabbit/Desktop/cuda-spike/.build/CMakeFiles 52
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/rabbit/Desktop/cuda-spike/.build/CMakeFiles 54
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/test_main.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/rabbit/Desktop/cuda-spike/.build/CMakeFiles 0
 .PHONY : CMakeFiles/test_main.dir/rule
@@ -338,7 +338,7 @@ test_main: CMakeFiles/test_main.dir/rule
 # codegen rule for target.
 CMakeFiles/test_main.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_main.dir/build.make CMakeFiles/test_main.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/rabbit/Desktop/cuda-spike/.build/CMakeFiles --progress-num=62,63,64 "Finished codegen for target test_main"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/rabbit/Desktop/cuda-spike/.build/CMakeFiles --progress-num=64,65,66 "Finished codegen for target test_main"
 .PHONY : CMakeFiles/test_main.dir/codegen
 
 # clean rule for target.
@@ -361,7 +361,7 @@ CMakeFiles/net.dir/all: _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/g
 
 # Build rule for subdir invocation for target.
 CMakeFiles/net.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/rabbit/Desktop/cuda-spike/.build/CMakeFiles 52
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/rabbit/Desktop/cuda-spike/.build/CMakeFiles 54
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/net.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/rabbit/Desktop/cuda-spike/.build/CMakeFiles 0
 .PHONY : CMakeFiles/net.dir/rule
@@ -396,7 +396,7 @@ CMakeFiles/mnist.dir/all: _deps/raylib-build/raylib/external/glfw/src/CMakeFiles
 
 # Build rule for subdir invocation for target.
 CMakeFiles/mnist.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/rabbit/Desktop/cuda-spike/.build/CMakeFiles 52
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/rabbit/Desktop/cuda-spike/.build/CMakeFiles 54
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/mnist.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/rabbit/Desktop/cuda-spike/.build/CMakeFiles 0
 .PHONY : CMakeFiles/mnist.dir/rule
@@ -487,7 +487,7 @@ _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/clean:
 _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/update_mappings.dir/all:
 	$(MAKE) $(MAKESILENT) -f _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/update_mappings.dir/build.make _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/update_mappings.dir/depend
 	$(MAKE) $(MAKESILENT) -f _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/update_mappings.dir/build.make _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/update_mappings.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/rabbit/Desktop/cuda-spike/.build/CMakeFiles --progress-num=65 "Built target update_mappings"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/rabbit/Desktop/cuda-spike/.build/CMakeFiles --progress-num=67 "Built target update_mappings"
 .PHONY : _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/update_mappings.dir/all
 
 # Build rule for subdir invocation for target.
@@ -504,7 +504,7 @@ update_mappings: _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/update_m
 # codegen rule for target.
 _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/update_mappings.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/update_mappings.dir/build.make _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/update_mappings.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/rabbit/Desktop/cuda-spike/.build/CMakeFiles --progress-num=65 "Finished codegen for target update_mappings"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/rabbit/Desktop/cuda-spike/.build/CMakeFiles --progress-num=67 "Finished codegen for target update_mappings"
 .PHONY : _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/update_mappings.dir/codegen
 
 # clean rule for target.

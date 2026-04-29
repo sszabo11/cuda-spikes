@@ -12,14 +12,17 @@ CMakeFiles/mnist.dir/src/mnist.c.o: \
  /usr/include/bits/stdint-intn.h /usr/include/bits/stdint-uintn.h \
  /usr/include/bits/stdint-least.h \
  /home/rabbit/Desktop/cuda-spike/include/config.h \
- /home/rabbit/Desktop/cuda-spike/include/data.h \
- /home/rabbit/Desktop/cuda-spike/include/config.h \
  /home/rabbit/Desktop/cuda-spike/include/encode.h \
+ /home/rabbit/Desktop/cuda-spike/include/config.h \
  /home/rabbit/Desktop/cuda-spike/include/eye.h \
  /home/rabbit/Desktop/cuda-spike/.build/_deps/raylib-src/src/raylib.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stdarg.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stdbool.h \
- /home/rabbit/Desktop/cuda-spike/include/mnist.h /usr/include/pthread.h \
+ /home/rabbit/Desktop/cuda-spike/include/mnist.h \
+ /home/rabbit/Desktop/cuda-spike/include/eye.h \
+ /home/rabbit/Desktop/cuda-spike/include/logger.h \
+ /home/rabbit/Desktop/cuda-spike/include/data.h \
+ /home/rabbit/Desktop/cuda-spike/include/encode.h /usr/include/pthread.h \
  /usr/include/sched.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stddef.h \
  /usr/include/bits/types/time_t.h \
@@ -39,10 +42,7 @@ CMakeFiles/mnist.dir/src/mnist.c.o: \
  /usr/include/bits/types/struct___jmp_buf_tag.h \
  /usr/include/bits/pthread_stack_min-dynamic.h \
  /usr/include/bits/pthread_stack_min.h \
- /home/rabbit/Desktop/cuda-spike/include/encode.h \
- /home/rabbit/Desktop/cuda-spike/include/eye.h \
- /home/rabbit/Desktop/cuda-spike/include/logger.h \
- /home/rabbit/Desktop/cuda-spike/include/data.h \
+ /home/rabbit/Desktop/cuda-spike/include/network.h \
  /home/rabbit/Desktop/cuda-spike/include/process.h \
  /opt/cuda/targets/x86_64-linux/include/cuda_runtime.h \
  /opt/cuda/targets/x86_64-linux/include/crt/host_config.h \

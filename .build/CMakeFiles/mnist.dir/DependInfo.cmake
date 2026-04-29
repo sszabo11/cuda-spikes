@@ -9,7 +9,6 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/rabbit/Desktop/cuda-spike/src/mnist.c" "CMakeFiles/mnist.dir/src/mnist.c.o" "gcc" "CMakeFiles/mnist.dir/src/mnist.c.o.d"
-  "" "mnist" "gcc" "CMakeFiles/mnist.dir/link.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

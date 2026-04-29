@@ -34,7 +34,7 @@ int main() {
   config->sparsity = sparsity;
   config->T = T;
 
-  init_data(config, data, NULL);
+  init_network2(config, data, NULL);
 
   printf("\nPrior: %f\n", data->membranes[64]);
 

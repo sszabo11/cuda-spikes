@@ -95,7 +95,6 @@ main_EXTERNAL_OBJECTS =
 
 CMakeFiles/main.dir/cmake_device_link.o: CMakeFiles/main.dir/src/main.c.o
 CMakeFiles/main.dir/cmake_device_link.o: CMakeFiles/main.dir/build.make
-CMakeFiles/main.dir/cmake_device_link.o: CMakeFiles/main.dir/compiler_depend.ts
 CMakeFiles/main.dir/cmake_device_link.o: libsnn_c.a
 CMakeFiles/main.dir/cmake_device_link.o: libsnn_cuda.a
 CMakeFiles/main.dir/cmake_device_link.o: /opt/cuda/lib/libcudart.so
@@ -119,7 +118,6 @@ main_EXTERNAL_OBJECTS =
 
 main: CMakeFiles/main.dir/src/main.c.o
 main: CMakeFiles/main.dir/build.make
-main: CMakeFiles/main.dir/compiler_depend.ts
 main: libsnn_c.a
 main: libsnn_cuda.a
 main: /opt/cuda/lib/libcudart.so
