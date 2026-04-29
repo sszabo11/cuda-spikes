@@ -87,7 +87,7 @@ int main() {
   // Set weights, conns, thresholds etc
   printf("Initalized Network\n");
 
-  // Network *d_net = send_network_to_gpu(net);
+  Network *d_net = send_network_to_gpu(net);
   printf("Sent to GPU\n");
 
   // Training

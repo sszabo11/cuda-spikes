@@ -34,4 +34,6 @@ Network *network_destroy(Network *net);
 int init_network(Network *net, Config *config);
 void free_data(Data *data);
 
+Network *send_network_to_gpu(Network *net);
+
 #endif

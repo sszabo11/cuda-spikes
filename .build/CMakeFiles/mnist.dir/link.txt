@@ -1,1 +1,0 @@
-/usr/bin/g++ @CMakeFiles/mnist.dir/objects1.rsp CMakeFiles/mnist.dir/cmake_device_link.o -o mnist @CMakeFiles/mnist.dir/linkLibs.rsp -L"/opt/cuda/targets/x86_64-linux/lib/stubs" -L"/opt/cuda/targets/x86_64-linux/lib"

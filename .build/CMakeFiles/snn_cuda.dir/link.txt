@@ -1,2 +1,0 @@
-/usr/bin/ar qc libsnn_cuda.a CMakeFiles/snn_cuda.dir/libs/cuda/spike.cu.o
-/usr/bin/ranlib libsnn_cuda.a
