@@ -6,7 +6,11 @@
 #ifndef ENCODE_H
 #define ENCODE_H
 
-#define SPIKE(st, y, x, t) (st)->data[((y) * (st)->width + (x)) * (st)->T + (t)]
+// #define SPIKE(st, y, x, t) (st)->data[((y) * (st)->width + (x)) * (st)->T +
+// (t)]
+
+#define SPIKE(st, pixel, t) (st)->data[(pixel) * (st)->T + (t)]
+#define GET_SPIKE(st, pixel_idx, t) (st)->data[(pixel_idx) * (st)->T + (t)]
 
 typedef struct NetworkData
     NetworkData; // forward declaration — breaks the cycle

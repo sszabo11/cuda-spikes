@@ -1,8 +1,7 @@
 #ifndef CUDA_INTERFACE_H
 #define CUDA_INTERFACE_H
 
-#include "config.h"
-#include "data.h"
+#include "network.h"
 
 #include <cuda_runtime.h>
 
@@ -18,7 +17,8 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-cudaError_t run_kernels(Config *config, NetworkData *data);
+
+cudaError_t run_kernels(Network *net);
 #ifdef __cplusplus
 }
 #endif

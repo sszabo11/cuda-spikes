@@ -1,6 +1,7 @@
+#pragma once
+
 #ifndef CONFIG_H
 #define CONFIG_H
-
 typedef struct {
   int n_neurons;
   int n_conns;

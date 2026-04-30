@@ -35,6 +35,8 @@ Network *network_destroy(Network *net) {
 Network *send_network_to_gpu(Network *net) {
   assert(net->data != NULL);
   assert(net->config != NULL);
+  printf("mem s: %d\n", (int)sizeof(net->data->membranes));
+  assert(sizeof(net->data->membranes) > 100);
 
   Data *data = net->data;
   Config *config = net->config;
@@ -147,6 +149,8 @@ int init_network(Network *net, Config *config) {
   net->output_dim = 0;
   net->data->membranes = (float *)calloc(net->config->n_neurons, sizeof(float));
 
+  printf("n n: %d\n", net->config->n_neurons);
+  printf("mem s: %d\n", (int)sizeof(net->data->membranes));
   net->data->conns = generate_connections(
       net->config->n_neurons, net->config->n_neurons, net->config->n_conns);
 

@@ -4,3 +4,4 @@ spike
 .clangd
 /logs
 /.build
+.build/

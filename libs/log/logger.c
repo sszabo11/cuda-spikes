@@ -1,4 +1,5 @@
 #include "data.h"
+#include "network.h"
 #include <stdio.h>
 
 // Call once before simulation loop
@@ -42,11 +43,10 @@ void init_logs() {
 
 // Call every timestep inside your simulation loop
 // Pass log_weights_every = N to only log weights every N steps (they're large)
-int write_to_csv(data_mutex_t *obj, int log_weights_every) {
-  int t = obj->timestep;
-  int n_neurons = obj->config->n_neurons;
-  int n_conns = obj->config->n_conns;
-  NetworkData *d = obj->front;
+int write_to_csv(Network *net, int t, int log_weights_every) {
+  int n_neurons = net->config->n_neurons;
+  int n_conns = net->config->n_conns;
+  Data *d = net->data;
 
   // ── Spikes ────────────────────────────────────────────────────────────────
   FILE *f_spikes = fopen("../logs/spikes.csv", "a");
@@ -99,6 +99,7 @@ int write_to_csv(data_mutex_t *obj, int log_weights_every) {
 
   for (int i = 0; i < n_neurons; i++) {
     uint8_t fired = d->post_spikes[i];
+    // printf("%d\n", fired);
     float v = d->membranes[i];
     float pre_tr = d->pre_trace[i];
     float post_tr = d->post_trace[i];

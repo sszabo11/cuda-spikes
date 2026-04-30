@@ -1,13 +1,35 @@
-#include "config.h"
-#include "data.h"
+
 #include "spike.h"
 #include <cuda_runtime.h>
+#include <device_launch_parameters.h>
 #include <math.h>
 #include <stddef.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 
+extern "C" {
+#include "network.h"
+}
+
+__global__ inject_input(float *membranes, uint8_t *input_spikes,
+                        size_t *input_idxs, uint8_t *spikes, int n_neurons,
+                        int n_input) {
+
+  int i = threadIdx.x + blockIdx.x * blockDim.x;
+
+  if (i >= n_input) {
+    return;
+  }
+
+  float sum = 0.0;
+
+  for (int i = 0; i < n_input; i++) {
+    size_t idx = input_idxs[i];
+    if (input_spikes[idx] == 1) {
+    }
+  }
+}
 __global__ void propagate(float *membranes, size_t *conns, float *weights,
                           uint8_t *spikes, int n_neurons, int n_conns) {
   int i = threadIdx.x + blockIdx.x * blockDim.x;
@@ -79,8 +101,11 @@ __global__ void update(float *membranes, size_t *conns, float *weights,
   }
 }
 
-cudaError_t run_kernels(Config *config, NetworkData *data) {
+cudaError_t run_kernels(Network *net) {
   const int THREADS_PER_BLOCK = 512;
+  Data *data = net->data;
+  Config *config = net->config;
+
   int n_blocks =
       (config->n_neurons + THREADS_PER_BLOCK - 1) / THREADS_PER_BLOCK;
 

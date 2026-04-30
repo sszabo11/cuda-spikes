@@ -98,14 +98,14 @@ cudaError_t process(data_mutex_t *obj) {
       int px = (int)((float)i / config->n_neurons * n_pixels);
       int y = px / obj->input->width;
       int x = px % obj->input->width;
-      data->pre_spikes[i] = SPIKE(obj->input, y, x, obj->timestep);
+      // data->pre_spikes[i] = SPIKE(obj->input, y, x, obj->timestep);
     }
     cudaMemcpy(d_pre_spikes, data->pre_spikes, n_neurons * sizeof(uint8_t),
                cudaMemcpyHostToDevice);
     // d_data.post_spikes = d_data.pre_spikes;
     // d_data.pre_spikes = data->pre_spikes;
     /////
-    cudaError_t err_n = run_kernels(config, &d_data);
+    // cudaError_t err_n = run_kernels(config, &d_data);
     obj->timestep++;
     obj->frame_ready = 1;
 
@@ -113,7 +113,7 @@ cudaError_t process(data_mutex_t *obj) {
     obj->front = obj->back;
     obj->back = tmp;
     if (obj->samples_done == 0) {
-      write_to_csv(obj, 1);
+      // write_to_csv(obj, 1);
     }
   }
 
@@ -241,7 +241,7 @@ cudaError_t process_from_thread(data_mutex_t *obj) {
       printf("Timestep: %d\n", obj->timestep);
     }
     // Network process one timestep
-    cudaError_t err_n = run_kernels(config, &d_data);
+    // cudaError_t err_n = run_kernels(config, &d_data);
     obj->timestep++;
     pthread_mutex_lock(&obj->mutex);
     obj->frame_ready = 1;
@@ -253,7 +253,7 @@ cudaError_t process_from_thread(data_mutex_t *obj) {
     NetworkData *tmp = obj->front;
     obj->front = obj->back;
     obj->back = tmp;
-    write_to_csv(obj, 1);
+    // write_to_csv(obj, 1);
     pthread_mutex_unlock(&obj->mutex);
 
     // Output decode on timestep

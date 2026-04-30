@@ -72,11 +72,12 @@ SpikeTrain *rate_encode(ImageData *img_data, int T) {
       // your rate encoding logic here
       Color pixel = img_data->pixels[y * img_data->width + x];
 
+      int pixel_co = y * st->width + x;
       float grayscale = (float)(pixel.r + pixel.g + pixel.b) / 3 / 255;
 
       for (int t = 0; t < T; t++) {
         if (rand() / (float)RAND_MAX < grayscale) {
-          SPIKE(st, y, x, t) = 1;
+          SPIKE(st, pixel_co, t) = 1;
         }
       }
     }
@@ -124,9 +125,10 @@ SpikeTrain *encode_mnist(mnist_image_t *img, int T) {
     float rate = img->pixels[i] / 255.0f;
     int y = i / MNIST_IMAGE_WIDTH;
     int x = i % MNIST_IMAGE_WIDTH;
+    int pixel_co = y * st->width + x;
     for (int t = 0; t < T; t++) {
       if ((float)rand() / RAND_MAX < rate) {
-        SPIKE(st, y, x, t) = 1;
+        SPIKE(st, pixel_co, t) = 1;
       }
     }
   }
@@ -143,6 +145,6 @@ void load_input_spikes(NetworkData *data, SpikeTrain *st, Config *config,
     int px = (int)((float)i / config->n_neurons * n_pixels);
     int y = px / st->width;
     int x = px % st->width;
-    data->pre_spikes[i] = SPIKE(st, y, x, t);
+    // data->pre_spikes[i] = SPIKE(st, y, x, t);
   }
 }

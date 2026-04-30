@@ -1,4 +1,5 @@
 #include "mnist.h"
+#include "compute.h"
 #include "config.h"
 #include "encode.h"
 #include "eye.h"
@@ -44,8 +45,9 @@ int main() {
   config->sparsity = sparsity;
   config->T = T;
 
-  Network *net = network_create();
-  init_network(net, config);
+  Network *h_net = network_create();
+  init_network(h_net, config);
+  printf("Initalized Network\n");
 
   mnist_dataset_t *train_dataset, *test_dataset;
   mnist_dataset_t batch;
@@ -85,9 +87,8 @@ int main() {
   // pthread_t render_thread, compute_thread;
 
   // Set weights, conns, thresholds etc
-  printf("Initalized Network\n");
 
-  Network *d_net = send_network_to_gpu(net);
+  Network *d_net = send_network_to_gpu(h_net);
   printf("Sent to GPU\n");
 
   // Training
@@ -97,11 +98,16 @@ int main() {
     }
     mnist_image_t *img = &train_dataset->images[img_idx];
     SpikeTrain *st = encode_mnist(img, T);
+    // for (int i = 0; i < 728; i++) {
+    //   printf("st: %d\n", st->data[i]);
+    // }
+    compute(d_net, h_net, st, img_idx);
+
     free(st->data);
     free(st);
   }
 
-  network_destroy(net);
+  network_destroy(h_net);
   mnist_free_dataset(train_dataset);
   mnist_free_dataset(test_dataset);
 }
