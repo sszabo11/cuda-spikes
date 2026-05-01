@@ -1,5 +1,6 @@
 #include "data.h"
 #include "network.h"
+#include <stdint.h>
 #include <stdio.h>
 
 // Call once before simulation loop
@@ -160,4 +161,48 @@ int write_to_csv(Network *net, int t, int log_weights_every) {
   }
 
   return 0;
+}
+
+// ── Digit response logging
+// ────────────────────────────────────────────────────
+
+// Call once before test_images loop — writes header row
+void init_digit_log(int n_neurons) {
+  FILE *f = fopen("../logs/digit_responses.csv", "w");
+  if (!f) {
+    printf("Error: could not open digit_responses.csv\n");
+    return;
+  }
+
+  // Only write header if the file is empty
+  fseek(f, 0, SEEK_END);
+  long size = ftell(f);
+  if (size == 0) {
+    fprintf(f, "img_idx,label");
+    for (int i = 0; i < n_neurons; i++) {
+      fprintf(f, ",n%d", i);
+    }
+    fprintf(f, "\n");
+  }
+
+  fclose(f);
+}
+
+// Call once per test image after all T timesteps have run
+// spike_counts[i] = total times neuron i fired across all timesteps
+void write_digit_response(Network *h_net, int img_idx, uint8_t label,
+                          uint32_t *spike_counts) {
+  FILE *f = fopen("../logs/digit_responses.csv", "a");
+  if (!f) {
+    printf("Error: could not open digit_responses.csv\n");
+    return;
+  }
+
+  fprintf(f, "%d,%d", img_idx, label);
+  for (int i = 0; i < h_net->config->n_neurons; i++) {
+    fprintf(f, ",%u", spike_counts[i]);
+  }
+  fprintf(f, "\n");
+
+  fclose(f);
 }
