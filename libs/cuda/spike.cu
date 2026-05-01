@@ -1,5 +1,6 @@
 
 #include "spike.h"
+#include <assert.h>
 #include <cuda_runtime.h>
 #include <device_launch_parameters.h>
 #include <math.h>
@@ -12,9 +13,9 @@ extern "C" {
 #include "network.h"
 }
 
-__global__ inject_input(float *membranes, uint8_t *input_spikes,
-                        size_t *input_idxs, uint8_t *spikes, int n_neurons,
-                        int n_input) {
+__global__ void inject_input_kernel(uint8_t *input_spikes, size_t *input_idxs,
+                                    uint8_t *spikes, int n_neurons, int n_input,
+                                    int T, int t) {
 
   int i = threadIdx.x + blockIdx.x * blockDim.x;
 
@@ -22,12 +23,13 @@ __global__ inject_input(float *membranes, uint8_t *input_spikes,
     return;
   }
 
-  float sum = 0.0;
+  size_t idx = input_idxs[i];
 
-  for (int i = 0; i < n_input; i++) {
-    size_t idx = input_idxs[i];
-    if (input_spikes[idx] == 1) {
-    }
+  uint8_t fired = input_spikes[i * T + t] == 1;
+  // printf("i: %d, idx: %d, input: %d\n", i, (int)idx, (int)input_spikes[i]);
+  if (fired) {
+
+    spikes[idx] = fired; // Inject the spike into the corrosponding input neuron
   }
 }
 __global__ void propagate(float *membranes, size_t *conns, float *weights,
@@ -99,6 +101,22 @@ __global__ void update(float *membranes, size_t *conns, float *weights,
 
     weights[i * n_conns + j] = fmaxf(w_min, fminf(w_max, weight));
   }
+}
+
+cudaError_t inject_input(Network *net, int t) {
+  const int THREADS_PER_BLOCK = 512;
+  Data *data = net->data;
+  Config *config = net->config;
+
+  int n_blocks = (net->input_dim + THREADS_PER_BLOCK - 1) / THREADS_PER_BLOCK;
+
+  inject_input_kernel<<<n_blocks, THREADS_PER_BLOCK>>>(
+      data->input_spikes, data->input_idxs, data->pre_spikes, config->n_neurons,
+      net->input_dim, net->config->T, t);
+
+  cudaDeviceSynchronize();
+
+  return cudaSuccess;
 }
 
 cudaError_t run_kernels(Network *net) {

@@ -15,8 +15,7 @@
 typedef struct NetworkData
     NetworkData; // forward declaration — breaks the cycle
 typedef struct {
-  int width;
-  int height;
+  int dim;
   int T;
   uint8_t *data;
 } SpikeTrain;

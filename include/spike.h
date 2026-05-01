@@ -4,6 +4,7 @@
 #include "network.h"
 
 #include <cuda_runtime.h>
+#include <stdint.h>
 
 #define checkCuda(err)                                                         \
   do {                                                                         \
@@ -19,6 +20,7 @@ extern "C" {
 #endif
 
 cudaError_t run_kernels(Network *net);
+cudaError_t inject_input(Network *net, int t);
 #ifdef __cplusplus
 }
 #endif

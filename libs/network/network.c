@@ -63,14 +63,19 @@ Network *send_network_to_gpu(Network *net) {
   uint8_t *d_post_spikes;
   uint8_t *d_refactory;
   uint8_t *d_pre_spikes;
+  uint8_t *d_input_spikes;
+  size_t *d_input_idxs;
 
   int n_neurons = config->n_neurons;
   int n_conns = config->n_conns;
+  int input_dim = net->input_dim;
 
   Network *d_net = malloc(sizeof(Network));
   Data *d_data = malloc(sizeof(Data));
 
   cudaMalloc((void **)&d_membranes, n_neurons * sizeof(float));
+  cudaMalloc((void **)&d_input_spikes, input_dim * sizeof(uint8_t));
+  cudaMalloc((void **)&d_input_idxs, input_dim * sizeof(size_t));
   cudaMalloc((void **)&d_conns, n_neurons * n_conns * sizeof(size_t));
   cudaMalloc((void **)&d_weights, n_neurons * n_conns * sizeof(float));
   cudaMalloc((void **)&d_pre_spikes, n_neurons * sizeof(uint8_t));
@@ -81,6 +86,11 @@ Network *send_network_to_gpu(Network *net) {
   cudaMalloc((void **)&d_thresholds, n_neurons * sizeof(float));
 
   cudaMemcpy(d_membranes, data->membranes, n_neurons * sizeof(float),
+             cudaMemcpyHostToDevice);
+  cudaMemcpy(d_input_spikes, data->input_spikes, input_dim * sizeof(uint8_t),
+             cudaMemcpyHostToDevice);
+
+  cudaMemcpy(d_input_idxs, data->input_idxs, input_dim * sizeof(size_t),
              cudaMemcpyHostToDevice);
   cudaMemcpy(d_conns, data->conns, n_neurons * n_conns * sizeof(size_t),
              cudaMemcpyHostToDevice);
@@ -102,6 +112,9 @@ Network *send_network_to_gpu(Network *net) {
   cudaMemcpy(d_refactory, data->refactory, n_neurons * sizeof(uint8_t),
              cudaMemcpyHostToDevice);
 
+  d_net->input_dim = net->input_dim;
+  d_net->n_dim = net->n_dim;
+  d_net->output_dim = net->output_dim;
   // Pointers that live on device
   d_data->membranes = d_membranes;
   d_data->conns = d_conns;
@@ -111,7 +124,9 @@ Network *send_network_to_gpu(Network *net) {
   d_data->pre_trace = d_pre_trace;
   d_data->post_trace = d_post_trace;
   d_data->refactory = d_refactory;
+  d_data->input_spikes = d_input_spikes;
   d_data->thresholds = d_thresholds;
+  d_data->input_idxs = d_input_idxs;
 
   d_net->data = d_data;
 
@@ -137,14 +152,14 @@ size_t *allocate_neuron_space(Network *net, int n) {
 }
 
 // Seed weights, thresholds and init variables
-int init_network(Network *net, Config *config) {
+int init_network(Network *net, Config *config, int input_dim) {
   // if (net->config == NULL) {
   //   printf("No config set before `init_network`\n");
   //   return -1;
   // }
 
   net->config = config;
-  net->input_dim = 0;
+  net->input_dim = input_dim;
   net->n_dim = 0;
   net->output_dim = 0;
   net->data->membranes = (float *)calloc(net->config->n_neurons, sizeof(float));
@@ -175,9 +190,13 @@ int init_network(Network *net, Config *config) {
   net->data->refactory =
       (uint8_t *)calloc(net->config->n_neurons, sizeof(uint8_t));
 
+  net->data->input_spikes = (uint8_t *)calloc(net->input_dim, sizeof(uint8_t));
+
   net->data->input_idxs = allocate_neuron_space(net, net->input_dim);
   net->data->neuron_idxs = allocate_neuron_space(net, net->n_dim);
   net->data->output_idxs = allocate_neuron_space(net, net->output_dim);
+
+  printf("b: %d\n", (int)net->data->input_idxs[3]);
 
   int spikes = 0;
   for (int i = 0; i < net->config->n_neurons; i++) {
@@ -201,5 +220,6 @@ void free_data(Data *data) {
   free(data->post_trace);
   free(data->pre_trace);
   free(data->refactory);
+  free(data->input_spikes);
   free(data->thresholds);
 }

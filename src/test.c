@@ -105,7 +105,8 @@ int main() {
 
   // ExportImage(*processed_img, "../data/output-desktop-black.png");
 
-  SpikeTrain *encoded_data = rate_encode(img_data, T);
+  // SpikeTrain *encoded_data = rate_encode(img_data, T);
+  SpikeTrain *encoded_data;
   printf("Rate encoded");
 
   // First timestep spikes

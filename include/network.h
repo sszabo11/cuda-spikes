@@ -18,6 +18,7 @@ typedef struct Data {
   size_t *input_idxs;
   size_t *neuron_idxs;
   size_t *output_idxs;
+  uint8_t *input_spikes;
 } Data;
 
 typedef struct Network {
@@ -31,7 +32,7 @@ typedef struct Network {
 Network *network_create();
 Network *network_destroy(Network *net);
 
-int init_network(Network *net, Config *config);
+int init_network(Network *net, Config *config, int input_dim);
 void free_data(Data *data);
 
 Network *send_network_to_gpu(Network *net);

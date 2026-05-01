@@ -24,7 +24,7 @@ const char *test_labels_file = "../data/mnist/t10k-labels-idx1-ubyte";
 int main() {
   srand(time(NULL));
   int n_neurons = 784;
-  int n_conns = 10;
+  int n_conns = 50;
 
   float sparsity = 0.02;
 
@@ -37,16 +37,21 @@ int main() {
   config->tau_minus = 0.95;
   config->tau_plus = 0.95;
   config->beta = 0.8;
-  config->a_plus = 0.003;
-  config->a_minus = 0.0035;
+  config->a_plus = 0.0003;
+  config->a_minus = 0.00035;
   config->w_min = 0.1;
-  config->w_max = 0.9;
-  config->base_threshold = 0.5;
+  config->w_max = 0.3;
+  config->base_threshold = 7.5;
   config->sparsity = sparsity;
   config->T = T;
 
   Network *h_net = network_create();
-  init_network(h_net, config);
+  init_network(h_net, config, 784);
+  // h_net->data->input_idxs = malloc(sizeof(size_t) * h_net->input_dim);
+  //  for (int i = 0; i < h_net->input_dim; i++) {
+  //    h_net->data->input_idxs[i] = i;
+  //  }
+
   printf("Initalized Network\n");
 
   mnist_dataset_t *train_dataset, *test_dataset;

@@ -44,48 +44,6 @@
 //  return train;
 //}
 
-SpikeTrain *rate_encode(ImageData *img_data, int T) {
-  if (!img_data || T <= 0)
-    return NULL;
-
-  SpikeTrain *st = malloc(sizeof(SpikeTrain));
-  if (!st)
-    return NULL;
-
-  st->width = img_data->width;
-  st->height = img_data->height;
-  st->T = T;
-
-  // Total size: height * width * T
-  size_t total_spikes = (size_t)st->height * st->width * T;
-
-  st->data = calloc(total_spikes, sizeof(uint8_t));
-  if (!st->data) {
-    free(st);
-    return NULL;
-  }
-
-  // Now you can fill it...
-  // Example: simple rate encoding
-  for (int y = 0; y < st->height; y++) {
-    for (int x = 0; x < st->width; x++) {
-      // your rate encoding logic here
-      Color pixel = img_data->pixels[y * img_data->width + x];
-
-      int pixel_co = y * st->width + x;
-      float grayscale = (float)(pixel.r + pixel.g + pixel.b) / 3 / 255;
-
-      for (int t = 0; t < T; t++) {
-        if (rand() / (float)RAND_MAX < grayscale) {
-          SPIKE(st, pixel_co, t) = 1;
-        }
-      }
-    }
-  }
-
-  return st;
-}
-
 // TODO: Cuda kernel for rate encoding.
 //
 
@@ -115,20 +73,16 @@ SpikeTrain *rate_encode(ImageData *img_data, int T) {
 
 SpikeTrain *encode_mnist(mnist_image_t *img, int T) {
   SpikeTrain *st = malloc(sizeof(SpikeTrain));
-  st->width = MNIST_IMAGE_WIDTH;   // 28
-  st->height = MNIST_IMAGE_HEIGHT; // 28
+  const int dim = 784;
+  st->dim = dim;
   st->T = T;
-  st->data =
-      calloc(MNIST_IMAGE_WIDTH * MNIST_IMAGE_HEIGHT * T, sizeof(uint8_t));
+  st->data = calloc(dim * T, sizeof(uint8_t));
 
-  for (int i = 0; i < MNIST_IMAGE_SIZE; i++) {
+  for (int i = 0; i < dim; i++) {
     float rate = img->pixels[i] / 255.0f;
-    int y = i / MNIST_IMAGE_WIDTH;
-    int x = i % MNIST_IMAGE_WIDTH;
-    int pixel_co = y * st->width + x;
     for (int t = 0; t < T; t++) {
       if ((float)rand() / RAND_MAX < rate) {
-        SPIKE(st, pixel_co, t) = 1;
+        st->data[i * T + t] = 1;
       }
     }
   }
@@ -139,12 +93,10 @@ SpikeTrain *encode_mnist(mnist_image_t *img, int T) {
 // samples evenly if n_neurons != 784
 void load_input_spikes(NetworkData *data, SpikeTrain *st, Config *config,
                        int t) {
-  int n_pixels = st->width * st->height; // 784
+  int n_pixels = 784; // 784
 
   for (int i = 0; i < config->n_neurons; i++) {
     int px = (int)((float)i / config->n_neurons * n_pixels);
-    int y = px / st->width;
-    int x = px % st->width;
     // data->pre_spikes[i] = SPIKE(st, y, x, t);
   }
 }

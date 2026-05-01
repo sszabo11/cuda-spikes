@@ -66,8 +66,9 @@ int main() {
                               kernel_sobel_y, img_data);
   printf("\nProcessed image.");
 
-  SpikeTrain *encoded_data = rate_encode(img_data, T);
+  // SpikeTrain *encoded_data = rate_encode(img_data, T);
 
+  SpikeTrain *encoded_data;
   // SpikeTrain *encoded_data = malloc(sizeof(SpikeTrain));
   // const int dim = 16;
 
