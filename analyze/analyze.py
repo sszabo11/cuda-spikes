@@ -103,7 +103,7 @@ def plot_receptive_fields(labels, vectors, n_neurons):
         fig.colorbar(im, ax=ax, fraction=0.046, pad=0.04)
 
     fig.tight_layout()
-    save(fig, "01_receptive_fields.png")
+    save(fig, "z_01_receptive_fields.png")
 
 
 # ── plot 2 — cosine similarity matrix ─────────────────────────────────────────
@@ -133,7 +133,7 @@ def plot_similarity_matrix(labels, vectors):
     ax.set_xlabel("Digit")
     ax.set_ylabel("Digit")
 
-    save(fig, "02_similarity_matrix.png")
+    save(fig, "z_02_similarity_matrix.png")
 
 
 # ── plot 3 — mean spike rate bar chart per digit ───────────────────────────────
@@ -155,7 +155,7 @@ def plot_spike_rate_bars(labels, vectors, n_neurons):
         ax.tick_params(labelsize=6)
 
     fig.tight_layout()
-    save(fig, "03_spike_rate_bars.png")
+    save(fig, "z_03_spike_rate_bars.png")
 
 
 # ── plot 4 — PCA ───────────────────────────────────────────────────────────────
@@ -201,7 +201,7 @@ def plot_pca(labels, vectors):
     ax.legend(title="Digit", markerscale=1.5, fontsize=8, loc="best")
     ax.grid(True, alpha=0.3)
 
-    save(fig, "04_pca.png")
+    save(fig, "z_04_pca.png")
 
 
 # ── plot 5 — t-SNE ─────────────────────────────────────────────────────────────
@@ -243,7 +243,7 @@ def plot_tsne(labels, vectors):
     ax.legend(title="Digit", markerscale=1.5, fontsize=8, loc="best")
     ax.grid(True, alpha=0.3)
 
-    save(fig, "05_tsne.png")
+    save(fig, "z_05_tsne.png")
 
 
 # ── plot 6 — training dynamics ─────────────────────────────────────────────────
@@ -297,7 +297,7 @@ def plot_training_dynamics():
     axes[3].grid(True, alpha=0.3)
 
     fig.tight_layout()
-    save(fig, "06_training_dynamics.png")
+    save(fig, "z_06_training_dynamics.png")
 
 
 # ── plot 7 — selectivity map ───────────────────────────────────────────────────
@@ -333,7 +333,7 @@ def plot_selectivity_map(labels, vectors, n_neurons):
     cbar.ax.set_yticklabels([str(d) for d in range(10)])
     ax.axis("off")
 
-    save(fig, "07_selectivity_map.png")
+    save(fig, "z_07_selectivity_map.png")
 
 
 # ── plot 8 — within-digit consistency ─────────────────────────────────────────
@@ -392,7 +392,7 @@ def plot_within_digit_consistency(labels, vectors):
     ax.set_ylim(-0.05, 1.05)
     ax.grid(True, alpha=0.3, axis="y")
 
-    save(fig, "08_within_digit_consistency.png")
+    save(fig, "z_08_within_digit_consistency.png")
 
 
 # ── main ───────────────────────────────────────────────────────────────────────

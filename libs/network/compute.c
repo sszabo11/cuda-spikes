@@ -103,7 +103,7 @@ cudaError_t test_images(Network *d_net, Network *h_net, mnist_dataset_t *imgs) {
   // Write header if digit_responses.csv is new
   init_digit_log(n_neurons);
 
-  for (int img_idx = 0; img_idx < 1000; img_idx++) {
+  for (int img_idx = 0; img_idx < 200; img_idx++) {
     mnist_image_t *img = &imgs->images[img_idx];
     uint8_t label = imgs->labels[img_idx];
 

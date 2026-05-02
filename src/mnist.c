@@ -25,7 +25,7 @@ const char *test_labels_file = "../data/mnist/t10k-labels-idx1-ubyte";
 int main() {
   srand(time(NULL));
   int n_neurons = 784;
-  int n_conns = 120;
+  int n_conns = 90;
 
   float sparsity = 0.02;
 
@@ -40,9 +40,9 @@ int main() {
   config->beta = 0.9;
   config->a_plus = 0.005;
   config->a_minus = 0.0055;
-  config->w_min = 0.0;
-  config->w_max = 1.0;
-  config->base_threshold = 3.5;
+  config->w_min = -0.5;
+  config->w_max = 0.8;
+  config->base_threshold = 1.5;
   config->sparsity = sparsity;
   config->T = T;
 
@@ -98,7 +98,7 @@ int main() {
   printf("Sent to GPU\n");
 
   // Training
-  for (int img_idx = 0; img_idx < 40000; img_idx++) {
+  for (int img_idx = 0; img_idx < 1000; img_idx++) {
     if (img_idx % 10 == 0) {
       printf("Idx: %d\n", img_idx);
     }
