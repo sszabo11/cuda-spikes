@@ -123,6 +123,20 @@ __global__ void update_kernel(float *membranes, size_t *conns, float *weights,
   }
 }
 
+__global__ void inhibition_kernel(float *membranes, size_t *conns,
+                                  float *weights, uint8_t *spikes,
+                                  int n_neurons, int n_conns) {
+  int i = threadIdx.x + blockIdx.x * blockDim.x;
+
+  if (i >= n_neurons)
+    return
+}
+
+// TODO:
+// seperate stdp learning from update
+// check thresh and reste kernel
+// inhbition kernel to pick top k winnesr randomly and supress neighbours
+
 cudaError_t inject_input(Network *net, int t) {
   const int THREADS_PER_BLOCK = 512;
   Data *data = net->data;
@@ -164,6 +178,10 @@ cudaError_t run_network(Network *net, bool learn) {
       (config->n_neurons + THREADS_PER_BLOCK - 1) / THREADS_PER_BLOCK;
 
   propagate_kernel<<<n_blocks, THREADS_PER_BLOCK>>>(
+      data->membranes, data->conns, data->weights, data->pre_spikes,
+      config->n_neurons, config->n_conns);
+
+  inhibition_kernel<<<n_blocks, THREADS_PER_BLOCK>>>(
       data->membranes, data->conns, data->weights, data->pre_spikes,
       config->n_neurons, config->n_conns);
 
